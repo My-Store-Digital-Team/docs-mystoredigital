@@ -7,4 +7,5 @@ FROM nginx:alpine
 COPY --from=build /src/index.html /usr/share/nginx/html/index.html
 COPY --from=build /src/styles.css /usr/share/nginx/html/styles.css
 COPY --from=build /src/docs       /usr/share/nginx/html/docs
+COPY --from=build /src/assets     /usr/share/nginx/html/assets
 EXPOSE 80
