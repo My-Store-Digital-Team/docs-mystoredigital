@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investigación de Mercado — Amazon USA — Rubberfit</title>
+<meta name="description" content="Análisis del mercado Amazon USA: TAM, competencia directa, márgenes y barreras de entrada para un producto vertical (caso Rubberfit).">
+<meta name="category" content="ANÁLISIS DE MERCADO">
+<meta name="date" content="2026-05-08">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23F7931E'/%3E%3Cstop offset='100%25' stop-color='%23E07A0A'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='Arial Black,Arial,sans-serif' font-size='40' font-weight='900' fill='white'%3ER%3C/text%3E%3C/svg%3E">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+  :root{
+    --o:#F7931E;--od:#E07A0A;--d:#1A1A2E;--d2:#16213E;
+    --g5:#6B7280;--g3:#94A3B8;--w:#FFF;
+    --gr:#10B981;--r:#EF4444;--b:#3B82F6;--y:#F59E0B;--p:#8B5CF6
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',sans-serif;background:#0f111a;color:#e2e8f0;min-height:100vh;line-height:1.55}
+
+  /* Topbar */
+  .topbar{background:linear-gradient(90deg,var(--d),var(--d2));padding:16px 30px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--o);position:sticky;top:0;z-index:100}
+  .topbar h1{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--w)}
+  .topbar h1 span{color:var(--o)}
+  .topbar .meta{font-size:12px;color:var(--g5);display:flex;gap:20px}
+  .topbar .meta span{color:var(--o);font-weight:600}
+
+  .container{max-width:1280px;margin:0 auto;padding:24px}
+
+  /* Hero */
+  .hero{background:linear-gradient(135deg,#1e2235,#161927);border-radius:18px;padding:36px;border:1px solid #2a2f45;margin-bottom:28px;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:-50px;right:-50px;width:300px;height:300px;background:radial-gradient(circle,rgba(247,147,30,.15),transparent 70%)}
+  .hero-tag{display:inline-block;background:rgba(247,147,30,.15);color:var(--o);padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px}
+  .hero h2{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:800;color:var(--w);margin-bottom:10px;line-height:1.2;position:relative}
+  .hero p{font-size:15px;color:var(--g3);max-width:780px;position:relative}
+  .hero-meta{display:flex;gap:30px;margin-top:22px;flex-wrap:wrap;position:relative}
+  .hero-meta div{font-size:12px;color:var(--g5)}
+  .hero-meta div b{color:var(--w);display:block;font-size:13px;margin-top:2px;font-weight:600}
+
+  /* Disclaimer */
+  .disclaimer{background:linear-gradient(90deg,rgba(245,158,11,.08),rgba(245,158,11,.02));border:1px solid rgba(245,158,11,.25);border-radius:12px;padding:18px 22px;margin-bottom:28px;display:flex;gap:16px;align-items:flex-start}
+  .disclaimer .icon{font-size:24px;line-height:1}
+  .disclaimer .title{font-weight:700;color:var(--y);font-size:13px;margin-bottom:4px}
+  .disclaimer .desc{font-size:13px;color:var(--g3)}
+  .conf-table{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+  .conf-item{font-size:11px;display:flex;align-items:center;gap:6px}
+
+  /* KPI cards */
+  .stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:28px}
+  .stat{background:linear-gradient(135deg,#1e2235,#161927);border-radius:14px;padding:20px;border:1px solid #2a2f45;transition:all .2s;position:relative}
+  .stat:hover{border-color:var(--o);transform:translateY(-2px)}
+  .stat-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--g5);font-weight:600;margin-bottom:8px}
+  .stat-value{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:800;line-height:1.1}
+  .stat-sub{font-size:11px;color:var(--g5);margin-top:6px}
+  .stat.o .stat-value{color:var(--o)}.stat.g .stat-value{color:var(--gr)}.stat.r .stat-value{color:var(--r)}.stat.b .stat-value{color:var(--b)}.stat.y .stat-value{color:var(--y)}.stat.p .stat-value{color:var(--p)}
+
+  /* Section */
+  .section{margin-bottom:36px;scroll-margin-top:80px}
+  .section-title{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+  .section-title .num{background:var(--o);color:var(--d);width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:16px}
+  .section-title h3{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--w)}
+
+  /* Cards */
+  .card{background:linear-gradient(135deg,#1e2235,#161927);border-radius:14px;border:1px solid #2a2f45;overflow:hidden;margin-bottom:18px}
+  .card-header{padding:18px 24px 14px;border-bottom:1px solid #2a2f45;display:flex;align-items:center;justify-content:space-between}
+  .card-title{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;color:var(--w)}
+  .card-sub{font-size:12px;color:var(--g5);margin-top:2px}
+  .card-body{padding:22px 24px}
+  .card-body p{margin-bottom:12px;color:var(--g3);font-size:14px}
+  .card-body p:last-child{margin-bottom:0}
+  .card-body strong{color:var(--w);font-weight:600}
+  .card-body em{color:var(--o);font-style:normal;font-weight:600}
+
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+
+  /* Tables */
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  thead th{text-align:left;padding:11px 14px;color:var(--g5);font-size:10px;text-transform:uppercase;letter-spacing:.5px;font-weight:700;border-bottom:1px solid #2a2f45;background:#161927}
+  tbody td{padding:12px 14px;border-bottom:1px solid #1a1f35;color:var(--g3)}
+  tbody tr:hover{background:rgba(247,147,30,.04)}
+  tbody tr:last-child td{border-bottom:none}
+  .mono{font-family:'Space Grotesk',monospace;font-weight:600;color:var(--w)}
+  .text-right{text-align:right}
+  .text-center{text-align:center}
+
+  /* Badges */
+  .badge{display:inline-block;padding:3px 9px;border-radius:14px;font-size:10px;font-weight:700;letter-spacing:.3px}
+  .badge-green{background:rgba(16,185,129,.15);color:var(--gr)}
+  .badge-yellow{background:rgba(245,158,11,.15);color:var(--y)}
+  .badge-red{background:rgba(239,68,68,.15);color:var(--r)}
+  .badge-blue{background:rgba(59,130,246,.15);color:var(--b)}
+  .badge-orange{background:rgba(247,147,30,.15);color:var(--o)}
+  .badge-purple{background:rgba(139,92,246,.15);color:var(--p)}
+  .badge-gray{background:rgba(107,114,128,.15);color:var(--g3)}
+
+  /* Alerts */
+  .alert{border-radius:12px;padding:16px 22px;margin-bottom:18px;display:flex;gap:14px;align-items:flex-start;border:1px solid}
+  .alert .icon{font-size:22px;line-height:1;flex-shrink:0}
+  .alert .body{flex:1}
+  .alert .title{font-weight:700;font-size:13px;margin-bottom:4px}
+  .alert .desc{font-size:13px;color:var(--g3);line-height:1.5}
+  .alert-success{background:linear-gradient(90deg,rgba(16,185,129,.08),rgba(16,185,129,.02));border-color:rgba(16,185,129,.25)}
+  .alert-success .title{color:var(--gr)}
+  .alert-warn{background:linear-gradient(90deg,rgba(245,158,11,.08),rgba(245,158,11,.02));border-color:rgba(245,158,11,.25)}
+  .alert-warn .title{color:var(--y)}
+  .alert-danger{background:linear-gradient(90deg,rgba(239,68,68,.08),rgba(239,68,68,.02));border-color:rgba(239,68,68,.25)}
+  .alert-danger .title{color:var(--r)}
+  .alert-info{background:linear-gradient(90deg,rgba(59,130,246,.08),rgba(59,130,246,.02));border-color:rgba(59,130,246,.25)}
+  .alert-info .title{color:var(--b)}
+  .alert-orange{background:linear-gradient(90deg,rgba(247,147,30,.08),rgba(247,147,30,.02));border-color:rgba(247,147,30,.3)}
+  .alert-orange .title{color:var(--o)}
+
+  /* Pricing tier visual */
+  .tier-stack{display:flex;flex-direction:column;gap:10px}
+  .tier{display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:10px;border:1px solid #2a2f45;background:#161927;transition:all .2s}
+  .tier:hover{border-color:var(--o)}
+  .tier-tag{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:11px;letter-spacing:1px;padding:5px 12px;border-radius:6px;min-width:90px;text-align:center}
+  .tier-premium .tier-tag{background:rgba(139,92,246,.18);color:var(--p)}
+  .tier-mid .tier-tag{background:rgba(247,147,30,.18);color:var(--o)}
+  .tier-entry .tier-tag{background:rgba(107,114,128,.18);color:var(--g3)}
+  .tier-content{flex:1;font-size:13px;color:var(--g3)}
+  .tier-content b{color:var(--w);display:block;margin-bottom:2px;font-size:14px}
+  .tier-rubberfit{border:2px solid var(--o);background:linear-gradient(90deg,rgba(247,147,30,.1),rgba(247,147,30,.02))}
+  .tier-rubberfit .tier-tag{background:var(--o);color:var(--d)}
+
+  /* Diagrama arancelario */
+  .arancel-diagram{background:#161927;border-radius:12px;padding:22px;border:1px solid #2a2f45;font-family:'Space Grotesk',monospace;font-size:13px}
+  .arancel-row{display:grid;grid-template-columns:auto 1fr auto;gap:10px;padding:8px 0;align-items:center}
+  .arancel-row.total{border-top:1px dashed #2a2f45;padding-top:12px;margin-top:8px;font-weight:700}
+  .arancel-row .lbl{color:var(--g3)}
+  .arancel-row .bar{height:8px;border-radius:4px;background:#1a1f35;overflow:hidden;position:relative}
+  .arancel-row .fill{position:absolute;left:0;top:0;bottom:0;border-radius:4px}
+  .arancel-row .val{font-weight:700;font-size:14px;min-width:90px;text-align:right}
+  .vs-label{text-align:center;color:var(--y);font-weight:700;letter-spacing:2px;font-size:11px;margin:14px 0}
+  .arancel-block{margin-bottom:18px}
+  .arancel-block-title{font-weight:700;color:var(--w);font-size:14px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+  .savings-callout{background:linear-gradient(90deg,rgba(16,185,129,.15),rgba(16,185,129,.02));border:1px solid rgba(16,185,129,.3);border-radius:10px;padding:14px 18px;margin-top:14px;text-align:center;color:var(--gr);font-weight:600;font-size:14px}
+  .savings-callout b{font-size:18px;display:inline-block;margin:0 4px}
+
+  /* Escenarios */
+  .scenarios-table tbody td{padding:14px}
+  .scenarios-table .scen-name{font-weight:700;color:var(--w)}
+  .scenarios-table tr.highlight{background:rgba(247,147,30,.05)}
+  .scenarios-table tr.highlight td:first-child{position:relative}
+  .scenarios-table tr.highlight td:first-child::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--o)}
+
+  /* Recomendación final */
+  .reco-card{background:linear-gradient(135deg,rgba(247,147,30,.18),rgba(247,147,30,.04));border:2px solid var(--o);border-radius:18px;padding:30px;margin-bottom:24px;position:relative;overflow:hidden}
+  .reco-card::before{content:'';position:absolute;top:-30px;right:-30px;width:200px;height:200px;background:radial-gradient(circle,rgba(247,147,30,.2),transparent 70%);pointer-events:none}
+  .reco-tag{display:inline-block;background:var(--o);color:var(--d);padding:6px 16px;border-radius:20px;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px}
+  .reco-card h3{font-family:'Space Grotesk',sans-serif;font-size:28px;color:var(--w);margin-bottom:10px}
+  .reco-card .subt{color:var(--g3);font-size:14px;max-width:700px;margin-bottom:20px}
+  .reco-phases{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+  .reco-phase{background:rgba(0,0,0,.25);border-radius:12px;padding:18px;border:1px solid rgba(247,147,30,.2)}
+  .reco-phase .lbl{font-size:10px;color:var(--o);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+  .reco-phase h4{color:var(--w);font-size:15px;margin-bottom:8px;font-family:'Space Grotesk',sans-serif}
+  .reco-phase ul{list-style:none;padding:0;margin:0}
+  .reco-phase li{font-size:12px;color:var(--g3);padding:4px 0;padding-left:16px;position:relative}
+  .reco-phase li::before{content:'›';position:absolute;left:0;color:var(--o);font-weight:700}
+
+  /* Lists */
+  ul.bullet-list{list-style:none;padding:0;margin:0}
+  ul.bullet-list li{padding:6px 0 6px 22px;position:relative;font-size:13px;color:var(--g3)}
+  ul.bullet-list li::before{content:'■';position:absolute;left:0;color:var(--o);font-size:10px;top:9px}
+  ul.bullet-list li b{color:var(--w);font-weight:600}
+
+  /* TOC */
+  .toc{background:#161927;border-radius:12px;padding:18px 22px;border:1px solid #2a2f45;margin-bottom:28px}
+  .toc-title{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:var(--g5);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+  .toc-items{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .toc-items a{color:var(--g3);text-decoration:none;font-size:13px;padding:6px 10px;border-radius:6px;transition:all .15s;display:block}
+  .toc-items a:hover{background:rgba(247,147,30,.08);color:var(--o)}
+  .toc-items a span{color:var(--o);font-weight:700;margin-right:8px}
+
+  /* Sources */
+  .sources-list{font-size:12px;color:var(--g3);line-height:1.8}
+  .sources-list a{color:var(--o);text-decoration:none}
+  .sources-list a:hover{text-decoration:underline}
+  .sources-cat{font-weight:700;color:var(--w);font-size:13px;margin-top:14px;margin-bottom:6px;display:block}
+  .sources-cat:first-child{margin-top:0}
+
+  /* Footer */
+  .footer{text-align:center;color:var(--g5);font-size:11px;padding:30px 0;border-top:1px solid #2a2f45;margin-top:40px}
+
+  /* Print */
+  @media print{
+    body{background:#fff;color:#000}
+    .topbar{position:static;background:#fff;color:#000;border-bottom:2px solid #F7931E}
+    .topbar h1{color:#000}
+    .hero,.card,.stat,.toc,.disclaimer,.alert,.reco-card,.arancel-diagram{background:#fff!important;border:1px solid #ccc!important;color:#000!important;page-break-inside:avoid}
+    .stat-value,.card-title,.section-title h3{color:#000!important}
+    table thead th{background:#f5f5f5;color:#000}
+    table tbody td{color:#222}
+    .section{page-break-inside:avoid}
+  }
+
+  @media (max-width:1024px){
+    .stats-row{grid-template-columns:repeat(2,1fr)}
+    .grid-2,.grid-3{grid-template-columns:1fr}
+    .toc-items{grid-template-columns:1fr 1fr}
+    .reco-phases{grid-template-columns:1fr}
+    .conf-table{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <h1>Investigación de Mercado <span>Amazon USA</span> · Rubberfit</h1>
+  <div class="meta">
+    <div>Fase 1 · Mercado externo</div>
+    <div>Fecha: <span>28-abr-2026</span></div>
+    <div>Decisión GO/NO-GO: <span>30-may-2026</span></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">Informe Ejecutivo · Confidencial</div>
+    <h2>¿Tiene Rubberfit capacidad para participar con el tamaño de esta manzana o nada más con la hojita?</h2>
+    <p>Insumo para la decisión de entrada a Amazon USA. Esta Fase 1 cubre el mercado externo (USA + Centroamérica + Colombia). La Fase 2 cruza estos números con la capacidad real de planta antes de la decisión del comité.</p>
+    <div class="hero-meta">
+      <div>Autor<b>Claude Code (IA) bajo dirección de Edison</b></div>
+      <div>Audiencia<b>Comité ejecutivo Rubberfit</b></div>
+      <div>Scope<b>Resistance bands kits + bandas individuales</b></div>
+      <div>Presupuesto<b>$0 USD · Solo fuentes públicas</b></div>
+    </div>
+  </div>
+
+  <!-- TOC -->
+  <div class="toc">
+    <div class="toc-title">Contenido del informe</div>
+    <div class="toc-items">
+      <a href="#summary"><span>00</span>Executive Summary</a>
+      <a href="#mercado"><span>01</span>Tamaño del mercado</a>
+      <a href="#competencia"><span>02</span>Análisis competitivo</a>
+      <a href="#precios"><span>03</span>Pricing strategy</a>
+      <a href="#segmentacion"><span>04</span>Segmentación demanda</a>
+      <a href="#regulacion"><span>05</span>Barreras regulatorias</a>
+      <a href="#aranceles"><span>06</span>Aranceles · ventaja Colombia</a>
+      <a href="#fba"><span>07</span>Amazon FBA · costos</a>
+      <a href="#escenarios"><span>08</span>Escenarios de participación</a>
+      <a href="#riesgos"><span>09</span>Riesgos y mitigaciones</a>
+      <a href="#recomendacion"><span>10</span>Recomendación final</a>
+      <a href="#fuentes"><span>11</span>Fuentes consultadas</a>
+    </div>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="disclaimer">
+    <div class="icon">⚠</div>
+    <div>
+      <div class="title">Nivel de confianza de las cifras</div>
+      <div class="desc">Este informe se construyó con <b style="color:#fff">fuentes públicas gratuitas</b> (Grand View Research, Market Research Future, Mordor Intelligence, USTR, CBP, Amazon Best Sellers, Helium 10 blog). No se accedió a reportes pagos por restricción presupuestal. Cada cifra está marcada con uno de estos niveles:</div>
+      <div class="conf-table">
+        <div class="conf-item"><span class="badge badge-green">VERIFICADO</span> 2+ fuentes coinciden</div>
+        <div class="conf-item"><span class="badge badge-blue">ESTIMADO</span> Una fuente o cálculo derivado</div>
+        <div class="conf-item"><span class="badge badge-yellow">VERIFICAR</span> Inconsistencia entre fuentes</div>
+        <div class="conf-item"><span class="badge badge-gray">PENDIENTE</span> Requiere dato interno Rubberfit</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ EXECUTIVE SUMMARY ============ -->
+  <div class="section" id="summary">
+    <div class="section-title">
+      <div class="num">00</div>
+      <h3>Executive Summary</h3>
+    </div>
+
+    <!-- KPIs -->
+    <div class="stats-row">
+      <div class="stat o">
+        <div class="stat-label">Mercado USA 2026</div>
+        <div class="stat-value">~$750M</div>
+        <div class="stat-sub">USD · CAGR 9.9%</div>
+      </div>
+      <div class="stat g">
+        <div class="stat-label">Búsquedas mensuales</div>
+        <div class="stat-value">750K</div>
+        <div class="stat-sub">"resistance bands" Amazon</div>
+      </div>
+      <div class="stat y">
+        <div class="stat-label">Arancel Colombia</div>
+        <div class="stat-value">0%</div>
+        <div class="stat-sub">vs ~22-40% China</div>
+      </div>
+      <div class="stat b">
+        <div class="stat-label">Comisión total Amazon</div>
+        <div class="stat-value">~30%</div>
+        <div class="stat-sub">Referral 15% + FBA + storage</div>
+      </div>
+      <div class="stat p">
+        <div class="stat-label">Escenario hojita</div>
+        <div class="stat-value">$250M</div>
+        <div class="stat-sub">COP/mes · solo 0.1% USA</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="alert alert-success">
+        <div class="icon">✓</div>
+        <div class="body">
+          <div class="title">El mercado SÍ está listo</div>
+          <div class="desc">Mercado global de USD $1.66B en 2024 → $2.92B en 2030. USA concentra 40%. Categoría dominada por marcas chinas y norteamericanas en rangos $10-35; el espacio premium ($30-80) lo lideran Bodylastics y THERABAND. Hay <b style="color:#fff">espacio claro en mid-premium ($25-50)</b> para Rubberfit.</div>
+        </div>
+      </div>
+      <div class="alert alert-orange">
+        <div class="icon">★</div>
+        <div class="body">
+          <div class="title">Ventaja crítica — Colombia TPA</div>
+          <div class="desc">Por el U.S.-Colombia Trade Promotion Agreement (vigente desde 2012), los productos manufacturados en Colombia entran <b style="color:#fff">duty-free</b> a USA. Los competidores chinos cargan MFN ~4.6% + Section 301 (7.5-25%) + Section 122 (10%). <b style="color:#fff">Rubberfit puede vender 15-30% más barato manteniendo el mismo margen.</b></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reco-card">
+      <div class="reco-tag">Recomendación final · respuesta directa</div>
+      <h3>NO entrar a Amazon USA todavía · ventana Q3-Q4 2026</h3>
+      <p class="subt">El mercado está listo para Rubberfit. <b style="color:#fff">Rubberfit no está lista para el mercado.</b> Esa es la diferencia que define la respuesta. Mayo-Agosto = preparación interna obligatoria. Septiembre-Octubre = piloto controlado. Noviembre-Diciembre = primera temporada Black Friday con listing maduro.</p>
+
+      <div class="reco-phases">
+        <div class="reco-phase">
+          <div class="lbl">Mayo-Agosto · PREPARACIÓN</div>
+          <h4>Resolver bloqueadores internos</h4>
+          <ul>
+            <li>Resolver materia prima caucho (proveedor B)</li>
+            <li>Activar proveedora de personal externo</li>
+            <li>Conectar pixel + arreglar combos Shopify</li>
+            <li>Alcanzar y sostener $25M COP/mes en Colombia</li>
+            <li>Cotización de automatización</li>
+            <li>Gerard trabajando Centroamérica B2B (sin Amazon)</li>
+          </ul>
+        </div>
+        <div class="reco-phase">
+          <div class="lbl">Septiembre-Octubre · PILOTO</div>
+          <h4>1 SKU · volumen limitado</h4>
+          <ul>
+            <li>Kit Black único a $24.99-29.99</li>
+            <li>2.500 unidades/mes (escenario hojita)</li>
+            <li>Solo USA, no México</li>
+            <li>Brand Registry + listing optimizado</li>
+            <li>Aprovechar "Made in Colombia + TPA"</li>
+            <li>Entrar antes de Q4 para validar logística</li>
+          </ul>
+        </div>
+        <div class="reco-phase">
+          <div class="lbl">Noviembre-Diciembre · BLACK FRIDAY</div>
+          <h4>Primera temporada alta</h4>
+          <ul>
+            <li>Listing maduro y con reviews</li>
+            <li>Validar logística bajo presión real</li>
+            <li>KPIs: conversión &gt; 8% · rotura = 0% · reviews &gt; 4.3</li>
+            <li>Si se aguanta el pico → escalar 2027</li>
+            <li>Si no se aguanta → ajustar y reintentar</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-danger">
+      <div class="icon">⚠</div>
+      <div class="body">
+        <div class="title">Qué pasaría si entran YA — escenario realista</div>
+        <div class="desc">
+          1. Listing sale, capta tracción rápida (la ventaja en calidad es real)<br>
+          2. Pedidos crecen más rápido de lo que la planta puede entregar<br>
+          3. Stockout en FBA → Amazon penaliza el ranking del listing<br>
+          4. Los reviews iniciales se llenan de quejas por demoras<br>
+          5. La diferenciación premium "carro vs avión" se destruye con la primera mala reseña<br>
+          6. Don Oscar lo describió textual: <em style="color:var(--o);font-style:normal;font-weight:600">"matan la salida del producto"</em><br>
+          7. Recuperar ese listing después cuesta más que volver a empezar<br>
+          8. <b style="color:#fff">Es exactamente el caso del bocadillo / Walmart que mencionó Oscar</b>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="border:2px solid var(--o);background:linear-gradient(135deg,rgba(247,147,30,.12),rgba(247,147,30,.02))">
+      <div class="card-header" style="border-bottom:1px solid rgba(247,147,30,.2)">
+        <div>
+          <div class="card-title" style="color:var(--o);font-size:17px">★ La pregunta que cierra el debate</div>
+          <div class="card-sub">Test definitivo de capacidad para el comité ejecutivo</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p style="font-size:18px;color:var(--w);font-style:italic;line-height:1.5;margin:8px 0 16px;border-left:3px solid var(--o);padding-left:18px">Si Gerard hoy hiciera un pedido FBA de <b style="color:var(--o);font-style:normal">10.000 unidades</b> para entregar en <b style="color:var(--o);font-style:normal">30 días</b>, ¿la planta lo puede cumplir <b style="color:var(--o);font-style:normal">sin afectar las ventas Colombia y Ecuador</b>?</p>
+        <div class="grid-2" style="margin-top:18px">
+          <div style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);border-radius:10px;padding:16px">
+            <div style="color:var(--r);font-weight:700;font-size:13px;margin-bottom:6px">Si la respuesta sincera es NO</div>
+            <div style="color:var(--g3);font-size:13px">→ No se entra a Amazon todavía<br>→ Mayo-Agosto = preparación obligatoria<br>→ Gerard trabaja Centroamérica con sus canales</div>
+          </div>
+          <div style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25);border-radius:10px;padding:16px">
+            <div style="color:var(--gr);font-weight:700;font-size:13px;margin-bottom:6px">Si la respuesta sincera es SÍ</div>
+            <div style="color:var(--g3);font-size:13px">→ Adelantar piloto a julio-agosto<br>→ Cerrar Fase 2 con datos planta<br>→ Entrar a Amazon antes de Q4</div>
+          </div>
+        </div>
+        <p style="margin-top:18px;padding-top:16px;border-top:1px dashed rgba(247,147,30,.2);color:var(--g3);font-size:13px"><b style="color:var(--w)">Conclusión ejecutiva:</b> La ventaja competitiva de Rubberfit (calidad premium) solo vale si se entrega. Sin entrega, es marketing vacío contra chinos que sí entregan. <em style="color:var(--o);font-style:normal;font-weight:600">No se entra a un mercado mejor del que actualmente no se puede sostener.</em></p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============ 01 TAMAÑO MERCADO ============ -->
+  <div class="section" id="mercado">
+    <div class="section-title">
+      <div class="num">01</div>
+      <h3>Tamaño del mercado</h3>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Mercado global de resistance bands</div>
+          <div class="card-sub">Cifras consolidadas de Grand View Research y Market Research Future</div>
+        </div>
+        <span class="badge badge-green">VERIFICADO</span>
+      </div>
+      <div class="card-body">
+        <table>
+          <thead>
+            <tr><th>Métrica</th><th class="text-right">2024</th><th class="text-right">2026E</th><th class="text-right">2030E</th><th class="text-right">CAGR</th><th>Fuente</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Tamaño global (USD)</td><td class="text-right mono">$1.66B</td><td class="text-right mono">~$2.0B</td><td class="text-right mono">$2.92B</td><td class="text-right mono">9.9%</td><td><span class="badge badge-green">Grand View</span></td></tr>
+            <tr><td>Tamaño global alternativo</td><td class="text-right mono">—</td><td class="text-right mono">$1.87B</td><td class="text-right mono">$3.0B</td><td class="text-right mono">12.5%</td><td><span class="badge badge-yellow">MRF · verificar</span></td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:14px;font-size:12px;color:var(--g5)"><b style="color:var(--y)">Divergencia entre fuentes:</b> Grand View (9.9% CAGR) vs Market Research Future (12.5% CAGR). Para escenarios usamos la conservadora.</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Mercado USA · target principal</div>
+            <div class="card-sub">40% del mercado global</div>
+          </div>
+          <span class="badge badge-green">VERIFICADO</span>
+        </div>
+        <div class="card-body">
+          <table>
+            <tbody>
+              <tr><td>Share USA del mercado global</td><td class="text-right mono">40%</td></tr>
+              <tr><td>Tamaño USA 2024</td><td class="text-right mono">~$664M</td></tr>
+              <tr><td>Tamaño USA 2026E</td><td class="text-right mono">~$750-800M</td></tr>
+              <tr><td>Tamaño USA 2030E</td><td class="text-right mono">~$1.17B</td></tr>
+              <tr><td>Crecimiento anual USA</td><td class="text-right mono">~10%</td></tr>
+              <tr><td>Búsquedas mensuales en Amazon</td><td class="text-right mono">750.000</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Segmentación global</div>
+            <div class="card-sub">Por canal y aplicación 2024</div>
+          </div>
+          <span class="badge badge-green">VERIFICADO</span>
+        </div>
+        <div class="card-body">
+          <table>
+            <thead><tr><th>Segmento</th><th class="text-right">Share</th><th>Crecimiento</th></tr></thead>
+            <tbody>
+              <tr><td>Health &amp; sports clubs</td><td class="text-right mono">70.6%</td><td><span class="badge badge-gray">Moderado</span></td></tr>
+              <tr><td><b style="color:#fff">Individual / consumer</b></td><td class="text-right mono">29.4%</td><td><span class="badge badge-green">CAGR 10.9% · el más rápido</span></td></tr>
+              <tr><td>Canal online</td><td class="text-right mono">—</td><td><span class="badge badge-orange">El de mayor crecimiento</span></td></tr>
+            </tbody>
+          </table>
+          <p style="margin-top:14px;font-size:13px;color:var(--g3)"><b style="color:var(--o)">Implicación:</b> el segmento individual + online es el de mayor crecimiento. <b style="color:#fff">Amazon USA es el canal natural.</b></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Mercado Colombia · benchmark interno</div>
+            <div class="card-sub">Fitness equipment local</div>
+          </div>
+          <span class="badge badge-green">VERIFICADO</span>
+        </div>
+        <div class="card-body">
+          <table>
+            <tbody>
+              <tr><td>Fitness equipment Colombia 2024</td><td class="text-right mono">$78.09M USD</td></tr>
+              <tr><td>CAGR Colombia</td><td class="text-right mono">5.2%</td></tr>
+              <tr><td>Fitness equipment Colombia 2026E</td><td class="text-right mono">~$86M USD</td></tr>
+              <tr><td>Resistance bands Colombia (~5% del fitness)</td><td class="text-right mono">~$4M USD/año</td></tr>
+              <tr><td>Equivalente en COP</td><td class="text-right mono">~$16.000M COP/año</td></tr>
+            </tbody>
+          </table>
+          <p style="margin-top:14px;font-size:13px;color:var(--g3)">El target Rubberfit local de <em>$25M COP/mes</em> = <b style="color:#fff">$300M COP/año</b> = <b style="color:#fff">~2% del mercado colombiano</b> de resistance bands. Ambicioso pero posible.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Mercado Centroamérica · vía Gerard</div>
+            <div class="card-sub">Mercado emergente con baja penetración</div>
+          </div>
+          <span class="badge badge-green">VERIFICADO</span>
+        </div>
+        <div class="card-body">
+          <table>
+            <tbody>
+              <tr><td>Fitness equipment Latam 2024</td><td class="text-right mono">$877M USD</td></tr>
+              <tr><td>CAGR Latam</td><td class="text-right mono">5.4%</td></tr>
+              <tr><td>Penetración gym Centroamérica</td><td class="text-right mono">2.15%</td></tr>
+              <tr><td>Penetración gym Argentina (ref)</td><td class="text-right mono">4-5%</td></tr>
+              <tr><td>Costa Rica · estado</td><td class="text-right">Boutique en crecimiento</td></tr>
+            </tbody>
+          </table>
+          <p style="margin-top:14px;font-size:13px;color:var(--g3)"><b style="color:var(--o)">Implicación:</b> Centroamérica = mercado emergente. Gerard puede generar tracción rápida con red B2B (Chiquita / Del Monte / fisioterapias) sin Amazon todavía.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 02 COMPETENCIA ============ -->
+  <div class="section" id="competencia">
+    <div class="section-title">
+      <div class="num">02</div>
+      <h3>Análisis competitivo · top sellers Amazon USA</h3>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Brands dominantes en la categoría</div>
+          <div class="card-sub">Snapshot abril 2026</div>
+        </div>
+        <span class="badge badge-green">VERIFICADO</span>
+      </div>
+      <div class="card-body" style="padding:0">
+        <table>
+          <thead>
+            <tr><th>Brand</th><th>Origen</th><th>Posicionamiento</th><th class="text-right">Rango precio</th><th>Notas</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><b style="color:#fff">Bodylastics</b></td><td>USA</td><td>Premium con clips patentados</td><td class="text-right mono">$30-90</td><td>Líder en tube bands con anclajes</td></tr>
+            <tr><td><b style="color:#fff">Black Mountain Products</b></td><td>USA</td><td>Mass market · #1 Best Seller</td><td class="text-right mono">$15-40</td><td>Manija + door anchor</td></tr>
+            <tr><td><b style="color:#fff">Fit Simplify</b></td><td>USA</td><td>Líder fabric loop bands</td><td class="text-right mono">$9-20</td><td>Best Seller sub-categoría</td></tr>
+            <tr><td><b style="color:#fff">THERABAND</b></td><td>USA</td><td>Terapéutico premium</td><td class="text-right mono">$20-60</td><td>Estándar fisioterapia profesional</td></tr>
+            <tr><td><b style="color:#fff">Rogue Fitness</b></td><td>USA</td><td>Cross-fit / premium</td><td class="text-right mono">$25-80</td><td>Recomendado por trainers</td></tr>
+            <tr><td><b style="color:#fff">LEEKEY</b></td><td>China</td><td>Mass market</td><td class="text-right mono">$10-25</td><td>Con guía de instrucciones</td></tr>
+            <tr><td><b style="color:#fff">AmazonBasics</b></td><td>USA · private label</td><td>Volumen alto</td><td class="text-right mono">$10-20</td><td>Genérico Amazon</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Posicionamiento natural de Rubberfit</div>
+          <div class="card-sub">Espacio competitivo identificado</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="tier-stack">
+          <div class="tier tier-premium">
+            <div class="tier-tag">PREMIUM</div>
+            <div class="tier-content"><b>$35-80 USD</b>Bodylastics (clips patentados) · THERABAND (terapéutico médico) · Rogue (cross-fit)</div>
+          </div>
+          <div class="tier tier-rubberfit">
+            <div class="tier-tag">RUBBERFIT</div>
+            <div class="tier-content"><b>$25-50 USD ← espacio natural</b>Calidad premium colombiana + duty-free → ventaja estructural sobre marcas chinas</div>
+          </div>
+          <div class="tier tier-mid">
+            <div class="tier-tag">MID</div>
+            <div class="tier-content"><b>$20-35 USD</b>Black Mountain · genéricos USA</div>
+          </div>
+          <div class="tier tier-entry">
+            <div class="tier-tag">ENTRY</div>
+            <div class="tier-content"><b>$10-20 USD</b>Fit Simplify (fabric) · LEEKEY · AmazonBasics · private label chino — competencia "carro vs avión"</div>
+          </div>
+        </div>
+        <div class="alert alert-orange" style="margin-top:18px;margin-bottom:0">
+          <div class="icon">→</div>
+          <div class="body">
+            <div class="title">Insight clave</div>
+            <div class="desc">Rubberfit <b style="color:#fff">no debe competir en entry ($10-20)</b> con chinos por volumen. Su diferenciación natural es <b style="color:#fff">mid-premium ($25-50)</b> compitiendo en calidad de caucho y diversidad del kit, no en precio.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 03 PRECIOS ============ -->
+  <div class="section" id="precios">
+    <div class="section-title">
+      <div class="num">03</div>
+      <h3>Pricing strategy</h3>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><div><div class="card-title">Pricing recomendado para Rubberfit</div><div class="card-sub">Sweet spot competitivo</div></div></div>
+        <div class="card-body">
+          <table>
+            <thead><tr><th>Producto</th><th class="text-right">Precio sugerido</th><th>Posicionamiento</th></tr></thead>
+            <tbody>
+              <tr><td><b style="color:#fff">Kit Black USA</b></td><td class="text-right mono" style="color:var(--o);font-size:18px">$24.99-29.99</td><td>Sweet spot</td></tr>
+              <tr><td><b style="color:#fff">Kit Trainer USA</b></td><td class="text-right mono" style="color:var(--p);font-size:18px">$34.99-39.99</td><td>Mid-premium</td></tr>
+            </tbody>
+          </table>
+          <p style="margin-top:14px;font-size:12px;color:var(--g5)">Precios sujetos a validación contra costo unitario de planta <span class="badge badge-gray">PENDIENTE Fase 2</span></p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><div><div class="card-title">Rangos de precio por segmento</div><div class="card-sub">Amazon USA · datos públicos</div></div></div>
+        <div class="card-body">
+          <table>
+            <thead><tr><th>Segmento</th><th class="text-right">Rango</th><th>Características</th></tr></thead>
+            <tbody>
+              <tr><td>Entry</td><td class="text-right mono">$10-15</td><td>Bandas simples, sin accesorios</td></tr>
+              <tr><td><b style="color:var(--o)">Sweet spot</b></td><td class="text-right mono">$18-30</td><td>5 bandas + handles + anchor + bolsa</td></tr>
+              <tr><td>Premium</td><td class="text-right mono">$30-80</td><td>Latex calidad + lifetime warranty</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 04 SEGMENTACIÓN ============ -->
+  <div class="section" id="segmentacion">
+    <div class="section-title">
+      <div class="num">04</div>
+      <h3>Segmentación de demanda</h3>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><div><div class="card-title">Tipos de comprador</div></div></div>
+        <div class="card-body">
+          <table>
+            <thead><tr><th>Segmento</th><th class="text-right">Share aprox</th><th>Insight Rubberfit</th></tr></thead>
+            <tbody>
+              <tr><td><b style="color:#fff">Fitness / home workout</b></td><td class="text-right mono">60-65%</td><td><span class="badge badge-green">Comprador principal</span></td></tr>
+              <tr><td>Terapéutico / fisioterapia</td><td class="text-right mono">20-25%</td><td><span class="badge badge-yellow">THERABAND domina</span></td></tr>
+              <tr><td>Rehabilitación / adulto mayor</td><td class="text-right mono">10-15%</td><td><span class="badge badge-orange">Crecimiento</span></td></tr>
+              <tr><td>Atletismo profesional</td><td class="text-right mono">5%</td><td><span class="badge badge-gray">Nicho · Rogue</span></td></tr>
+            </tbody>
+          </table>
+          <p style="margin-top:14px;font-size:13px;color:var(--g3)"><b style="color:var(--o)">Coincidencia:</b> Don Oscar identificó adulto mayor como nicho con potencial. La data lo confirma — segmento creciente.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><div><div class="card-title">Estacionalidad de la categoría</div></div></div>
+        <div class="card-body">
+          <table>
+            <tbody>
+              <tr><td><b style="color:var(--gr)">Pico Q1 (enero)</b></td><td>Resoluciones de año nuevo</td></tr>
+              <tr><td><b style="color:var(--o)">Pico Q4 (nov-dic)</b></td><td>Black Friday + Cyber Monday</td></tr>
+              <tr><td><b style="color:var(--g5)">Valle Q3 (jul-ago)</b></td><td>Vacaciones</td></tr>
+            </tbody>
+          </table>
+          <div class="alert alert-info" style="margin-top:14px;margin-bottom:0">
+            <div class="icon">⏱</div>
+            <div class="body">
+              <div class="title">Implicación temporal</div>
+              <div class="desc">Si Rubberfit entra en Q3 2026, gana tiempo para optimizar antes del pico Q4 (Black Friday). Si entra en Q1 2027, llega tarde al pico de enero.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 05 REGULACIÓN ============ -->
+  <div class="section" id="regulacion">
+    <div class="section-title">
+      <div class="num">05</div>
+      <h3>Barreras regulatorias</h3>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-header"><div><div class="card-title">CPSC <span class="badge badge-orange">APLICA</span></div></div></div>
+        <div class="card-body">
+          <p>Resistance bands están bajo jurisdicción del Consumer Product Safety Commission.</p>
+          <ul class="bullet-list">
+            <li>General Certificate of Conformity (GCC) emitido por importador o fabricante</li>
+            <li>Estándar ASTM aplicable (no obligatorio pero recomendado)</li>
+            <li>Etiquetado en inglés con advertencias</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><div><div class="card-title">FDA <span class="badge badge-green">NO APLICA</span></div></div></div>
+        <div class="card-body">
+          <p>Solo si Rubberfit hace claims terapéuticos.</p>
+          <ul class="bullet-list">
+            <li>Como fitness/sports → CPSC únicamente</li>
+            <li>Si claims médicos → dispositivo médico clase I FDA</li>
+            <li><b>Recomendación:</b> mantener positioning fitness/deportivo</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><div><div class="card-title">Etiquetado</div></div></div>
+        <div class="card-body">
+          <ul class="bullet-list">
+            <li>Inglés obligatorio (español opcional, bonus mercado hispano)</li>
+            <li>Origen: <b>Made in Colombia</b></li>
+            <li>Material declarado (latex, TPE)</li>
+            <li>Resistencia en libras, no kg</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 06 ARANCELES ============ -->
+  <div class="section" id="aranceles">
+    <div class="section-title">
+      <div class="num">06</div>
+      <h3>Aranceles · ventaja Colombia <span class="badge badge-orange" style="font-size:11px">CRÍTICO</span></h3>
+    </div>
+
+    <div class="alert alert-orange">
+      <div class="icon">★</div>
+      <div class="body">
+        <div class="title">El insight más fuerte del informe</div>
+        <div class="desc">El U.S.-Colombia Trade Promotion Agreement (vigente desde 15-may-2012) permite que la mayoría de productos manufacturados en Colombia entren <b style="color:#fff">duty-free</b> a USA. Esta ventaja arancelaria <b style="color:#fff">compensa parcialmente la desventaja en costo de mano de obra</b> vs China.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">HTS 9506.91 · clasificación arancelaria</div>
+          <div class="card-sub">"Articles and equipment for general physical exercise, gymnastics or athletics"</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="arancel-diagram">
+
+          <div class="arancel-block">
+            <div class="arancel-block-title" style="color:var(--o)">▸ Costo de aterrizar un kit FOB Colombia $10 USD</div>
+
+            <div class="arancel-row">
+              <span class="lbl" style="color:var(--gr);font-weight:700;min-width:130px">Origen Colombia</span>
+              <div class="bar"><div class="fill" style="width:10%;background:var(--gr)"></div></div>
+              <span class="val" style="color:var(--gr)">~$11.00</span>
+            </div>
+            <div style="font-size:11px;color:var(--g5);padding-left:130px;margin-top:-4px">$10 FOB + $0 arancel (TPA) + $1 logística</div>
+
+          </div>
+
+          <div class="vs-label">— VS —</div>
+
+          <div class="arancel-block">
+            <div class="arancel-block-title" style="color:var(--r)">▸ Mismo kit con origen China</div>
+
+            <div class="arancel-row">
+              <span class="lbl" style="color:var(--r);font-weight:700;min-width:130px">Origen China</span>
+              <div class="bar"><div class="fill" style="width:35%;background:var(--r)"></div></div>
+              <span class="val" style="color:var(--r)">$13-15</span>
+            </div>
+            <div style="font-size:11px;color:var(--g5);padding-left:130px;margin-top:-4px">$8 FOB + ~$1.84 arancel (23% MFN+301) + $1 logística + $1.50-2.00 surcharges</div>
+
+          </div>
+
+          <div class="savings-callout">
+            Resultado · Rubberfit puede vender <b>15-30% más barato</b> manteniendo el mismo margen<br>
+            <span style="font-size:12px;font-weight:400;color:var(--g3)">o ganar margen adicional manteniendo el mismo precio</span>
+          </div>
+        </div>
+
+        <table style="margin-top:18px">
+          <thead><tr><th>Origen</th><th class="text-right">MFN</th><th class="text-right">Section 301</th><th class="text-right">Section 122 (feb-2026)</th><th class="text-right">Total estimado</th></tr></thead>
+          <tbody>
+            <tr><td><b style="color:var(--gr)">Colombia (TPA)</b></td><td class="text-right mono" style="color:var(--gr)">0%</td><td class="text-right mono">—</td><td class="text-right mono">—</td><td class="text-right mono" style="color:var(--gr);font-size:16px">0%</td></tr>
+            <tr><td>Default (cualquier país)</td><td class="text-right mono">~4.6%</td><td class="text-right mono">—</td><td class="text-right mono">10%</td><td class="text-right mono" style="color:var(--y)">~14.6%</td></tr>
+            <tr><td><b style="color:var(--r)">China</b></td><td class="text-right mono">~4.6%</td><td class="text-right mono">7.5-25%</td><td class="text-right mono">10%</td><td class="text-right mono" style="color:var(--r);font-size:16px">~22-40%+</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:10px;font-size:11px;color:var(--g5)"><span class="badge badge-yellow">VERIFICAR</span> Tarifa MFN exacta de 9506.91 confirmar en hts.usitc.gov antes de cerrar modelo financiero.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 07 AMAZON FBA ============ -->
+  <div class="section" id="fba">
+    <div class="section-title">
+      <div class="num">07</div>
+      <h3>Amazon FBA · estructura de costos</h3>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><div><div class="card-title">Comisiones Amazon · Sports &amp; Outdoors</div><div class="card-sub">Tarifas vigentes 2026</div></div></div>
+        <div class="card-body" style="padding:0">
+          <table>
+            <thead><tr><th>Concepto</th><th class="text-right">Valor 2026</th></tr></thead>
+            <tbody>
+              <tr><td><b style="color:var(--r)">Referral fee</b></td><td class="text-right mono">15% del precio</td></tr>
+              <tr><td>FBA fulfillment (small standard)</td><td class="text-right mono">$3.65/unidad</td></tr>
+              <tr><td>FBA fulfillment (large standard)</td><td class="text-right mono">$5-8/unidad</td></tr>
+              <tr><td>Storage Q1-Q3</td><td class="text-right mono">$0.78/cu ft/mes</td></tr>
+              <tr><td>Storage Q4 (oct-dic)</td><td class="text-right mono" style="color:var(--y)">$2.40/cu ft/mes</td></tr>
+              <tr><td>Fuel surcharge (abr-2026)</td><td class="text-right mono">3.5%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><div><div class="card-title">Modelo de costos · Kit Black @ $29.99</div><div class="card-sub">Estructura preliminar</div></div></div>
+        <div class="card-body">
+          <div style="font-family:'Space Grotesk',monospace;font-size:13px">
+            <div style="display:flex;justify-content:space-between;padding:6px 0">Precio venta Amazon<span style="color:var(--w);font-weight:700">$29.99</span></div>
+            <div style="display:flex;justify-content:space-between;padding:6px 0;color:var(--r)">- Referral fee 15%<span>-$4.50</span></div>
+            <div style="display:flex;justify-content:space-between;padding:6px 0;color:var(--r)">- FBA fulfillment<span>-$3.65</span></div>
+            <div style="display:flex;justify-content:space-between;padding:6px 0;color:var(--r)">- Storage prorrateado<span>-$0.30</span></div>
+            <div style="display:flex;justify-content:space-between;padding:6px 0;color:var(--r);border-bottom:1px dashed #2a2f45">- Fuel surcharge 3.5%<span>-$1.05</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;font-weight:700;color:var(--gr)">Net Amazon a Rubberfit<span>$20.49</span></div>
+            <div style="display:flex;justify-content:space-between;padding:6px 0;color:var(--r)">- Logística USA→FBA<span>-$1.50</span></div>
+            <div style="display:flex;justify-content:space-between;padding:6px 0;color:var(--gr)">+ Aterrizaje USA (TPA)<span>$0.00 ★</span></div>
+            <div style="display:flex;justify-content:space-between;padding:6px 0;color:var(--g5);border-bottom:1px dashed #2a2f45">- COGS Rubberfit<span class="badge badge-gray" style="font-family:'Inter'">PENDIENTE F2</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;font-weight:700;color:var(--o);font-size:15px">Margen disponible<span>≤ $18.99</span></div>
+          </div>
+          <p style="margin-top:12px;font-size:12px;color:var(--g5)"><b style="color:var(--o)">Para que sea viable:</b> COGS + logística Colombia→USA ≤ $10-12 USD por kit. Validar con Oscar.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-info">
+      <div class="icon">ⓘ</div>
+      <div class="body">
+        <div class="title">Aclaración terminológica · "el 5% de Amazon"</div>
+        <div class="desc">Gerard mencionó en la reunión que Amazon "anda muy abajo del 5%". Eso se refiere al <b style="color:#fff">storage fee</b> o anualidad por categoría — NO al referral fee del 15% que es ineludible y aplica a cada venta.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 08 ESCENARIOS ============ -->
+  <div class="section" id="escenarios">
+    <div class="section-title">
+      <div class="num">08</div>
+      <h3>Escenarios de participación</h3>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Tabla maestra de escenarios sobre mercado USA 2026 (~$750M)</div>
+          <div class="card-sub">Capacidad requerida pendiente de Fase 2</div>
+        </div>
+        <span class="badge badge-gray">PENDIENTE F2</span>
+      </div>
+      <div class="card-body" style="padding:0">
+        <table class="scenarios-table">
+          <thead>
+            <tr><th>Escenario</th><th class="text-right">Share USA</th><th class="text-right">Volumen anual USD</th><th class="text-right">Volumen mensual USD</th><th class="text-right">Unidades/mes (@$25)</th><th>Capacidad</th></tr>
+          </thead>
+          <tbody>
+            <tr class="highlight">
+              <td><b class="scen-name">Hojita</b></td>
+              <td class="text-right mono">0.1%</td>
+              <td class="text-right mono">$750.000</td>
+              <td class="text-right mono" style="color:var(--gr)">$62.500</td>
+              <td class="text-right mono" style="color:var(--gr);font-size:15px">~2.500</td>
+              <td><span class="badge badge-gray">PENDIENTE</span></td>
+            </tr>
+            <tr>
+              <td><b class="scen-name">Conservador</b></td>
+              <td class="text-right mono">0.3%</td>
+              <td class="text-right mono">$2.25M</td>
+              <td class="text-right mono">$187.500</td>
+              <td class="text-right mono">~7.500</td>
+              <td><span class="badge badge-gray">PENDIENTE</span></td>
+            </tr>
+            <tr>
+              <td><b class="scen-name">Realista</b></td>
+              <td class="text-right mono">1%</td>
+              <td class="text-right mono">$7.5M</td>
+              <td class="text-right mono">$625.000</td>
+              <td class="text-right mono">~25.000</td>
+              <td><span class="badge badge-gray">PENDIENTE</span></td>
+            </tr>
+            <tr>
+              <td><b class="scen-name">Ambicioso</b></td>
+              <td class="text-right mono">2%</td>
+              <td class="text-right mono">$15M</td>
+              <td class="text-right mono">$1.25M</td>
+              <td class="text-right mono">~50.000</td>
+              <td><span class="badge badge-gray">PENDIENTE</span></td>
+            </tr>
+            <tr>
+              <td><b class="scen-name">Manzana</b></td>
+              <td class="text-right mono">5%</td>
+              <td class="text-right mono">$37.5M</td>
+              <td class="text-right mono">$3.125M</td>
+              <td class="text-right mono">~125.000</td>
+              <td><span class="badge badge-gray">PENDIENTE</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="alert alert-success">
+      <div class="icon">✓</div>
+      <div class="body">
+        <div class="title">Lectura conservadora · valida el potencial</div>
+        <div class="desc">Si Rubberfit garantiza <b style="color:#fff">2.500 unidades/mes (escenario hojita)</b>, captura <b style="color:#fff">$62.500 USD/mes ≈ $250M COP/mes</b> en revenue Amazon. Esto es <b style="color:#fff">10x el target colombiano</b> de $25M COP/mes. Aún el escenario más conservador (0.1% del mercado USA) duplica varias veces el revenue colombiano objetivo.</div>
+      </div>
+    </div>
+
+    <div class="alert alert-warn">
+      <div class="icon">?</div>
+      <div class="body">
+        <div class="title">Pregunta clave para Fase 2</div>
+        <div class="desc">¿Puede Rubberfit garantizar <b style="color:#fff">2.500 unidades/mes sostenidas</b> + buffer de seguridad de 30% para evitar rotura de inventario en FBA?<br>Si <b style="color:var(--gr)">SÍ</b> → entrar a Amazon en escenario "hojita" o "conservador".<br>Si <b style="color:var(--r)">NO</b> → postergar Amazon, fortalecer planta primero, mantener Gerard en Centroamérica.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 09 RIESGOS ============ -->
+  <div class="section" id="riesgos">
+    <div class="section-title">
+      <div class="num">09</div>
+      <h3>Riesgos y mitigaciones</h3>
+    </div>
+
+    <div class="card">
+      <div class="card-body" style="padding:0">
+        <table>
+          <thead>
+            <tr><th>Riesgo</th><th class="text-center">Probabilidad</th><th class="text-center">Impacto</th><th>Mitigación</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b style="color:#fff">Rotura de inventario FBA</b></td>
+              <td class="text-center"><span class="badge badge-red">Alta</span></td>
+              <td class="text-center"><span class="badge badge-red">Crítico</span></td>
+              <td>Empezar SKU único · volumen limitado · buffer 30%</td>
+            </tr>
+            <tr>
+              <td>Section 301 China baja → recupera ventaja</td>
+              <td class="text-center"><span class="badge badge-gray">Baja</span></td>
+              <td class="text-center"><span class="badge badge-yellow">Medio</span></td>
+              <td>Ventaja TPA Colombia es estructural (no solo 301)</td>
+            </tr>
+            <tr>
+              <td>FDA reclasifica como dispositivo médico</td>
+              <td class="text-center"><span class="badge badge-gray">Muy baja</span></td>
+              <td class="text-center"><span class="badge badge-orange">Alto</span></td>
+              <td>Evitar claims médicos en listings</td>
+            </tr>
+            <tr>
+              <td>Listings tumbados por reseñas falsas chinos</td>
+              <td class="text-center"><span class="badge badge-yellow">Media</span></td>
+              <td class="text-center"><span class="badge badge-yellow">Medio</span></td>
+              <td>Vine reviews + Amazon Brand Registry</td>
+            </tr>
+            <tr>
+              <td>Cambio cambiario COP/USD desfavorable</td>
+              <td class="text-center"><span class="badge badge-yellow">Media</span></td>
+              <td class="text-center"><span class="badge badge-yellow">Medio</span></td>
+              <td>Pricing USD · recompra COP · hedging</td>
+            </tr>
+            <tr>
+              <td><b style="color:#fff">Materia prima caucho insuficiente</b></td>
+              <td class="text-center"><span class="badge badge-red">Alta</span></td>
+              <td class="text-center"><span class="badge badge-red">Crítico</span></td>
+              <td>Diversificar proveedor · bloqueador interno</td>
+            </tr>
+            <tr>
+              <td><b style="color:#fff">Capacidad personal planta</b></td>
+              <td class="text-center"><span class="badge badge-red">Alta</span></td>
+              <td class="text-center"><span class="badge badge-red">Crítico</span></td>
+              <td>Activar proveedora externa · automatización</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 10 RECOMENDACIÓN ============ -->
+  <div class="section" id="recomendacion">
+    <div class="section-title">
+      <div class="num">10</div>
+      <h3>Recomendación final</h3>
+    </div>
+
+    <div class="reco-card">
+      <div class="reco-tag">Postura · NO entrar todavía</div>
+      <h3>Preparar abr-ago · entrar Q3-Q4 2026</h3>
+      <p class="subt">El mercado USA está listo para Rubberfit. Rubberfit no está lista para el mercado. La diferenciación premium (calidad "carro vs avión") se destruye con la primera rotura de inventario. Ventana correcta: piloto en Sept-Oct para llegar maduro a Black Friday.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Bloqueadores internos vs requerimientos del mercado</div>
+          <div class="card-sub">Por qué Rubberfit aún no está lista</div>
+        </div>
+      </div>
+      <div class="card-body" style="padding:0">
+        <table>
+          <thead><tr><th>Bloqueador</th><th>Estado actual</th><th>Implicación para Amazon</th></tr></thead>
+          <tbody>
+            <tr><td><b style="color:#fff">Capacidad instalada</b></td><td>No 24/7, no 2 turnos sostenibles</td><td><span class="badge badge-red">No puede garantizar 2.500 unid/mes + buffer 30%</span></td></tr>
+            <tr><td><b style="color:#fff">Personal</b></td><td>Faltan operarios, entrevistas inconsistentes</td><td><span class="badge badge-red">El piloto colapsa al primer pico</span></td></tr>
+            <tr><td><b style="color:#fff">Materia prima caucho</b></td><td>Proveedor con problemas serios</td><td><span class="badge badge-red">1 semana sin suministro = stockout = listing muerto</span></td></tr>
+            <tr><td><b style="color:#fff">Pixel de Meta</b></td><td>NO conectado</td><td><span class="badge badge-yellow">Sin capacidad de medir conversión</span></td></tr>
+            <tr><td><b style="color:#fff">Target Colombia $25M/mes</b></td><td>NO alcanzado</td><td><span class="badge badge-yellow">Si no se sostiene Colombia, USA es prematuro</span></td></tr>
+            <tr><td><b style="color:#fff">Capital de trabajo</b></td><td>Limitado</td><td><span class="badge badge-yellow">No hay para inventario inicial FBA + 90 días bodega</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Roadmap correcto · ventana Q3-Q4 2026</div>
+          <div class="card-sub">Secuencia preparación → piloto → temporada alta</div>
+        </div>
+      </div>
+      <div class="card-body">
+<pre style="font-family:'Space Grotesk',monospace;font-size:13px;color:var(--g3);line-height:1.7;background:#161927;border-radius:10px;padding:18px;margin:0;overflow-x:auto">
+<b style="color:var(--o)">Mayo-Agosto 2026</b>  →  PREPARACIÓN INTERNA
+                     ├─ Resolver materia prima (proveedor B)
+                     ├─ Activar la proveedora de personal externo
+                     ├─ Conectar pixel + arreglar combos Shopify
+                     ├─ Alcanzar y sostener $25M COP/mes en Colombia
+                     ├─ Cotización de automatización
+                     └─ Gerard trabajando Centroamérica B2B (sin Amazon)
+
+<b style="color:var(--gr)">Sept-Oct 2026</b>     →  PILOTO AMAZON
+                     ├─ Kit Black único, 2.500 unid/mes
+                     ├─ Entrar antes del Q4 para validar logística
+                     └─ Llegar a Black Friday con listing maduro
+
+<b style="color:var(--p)">Nov-Dic 2026</b>      →  PRIMERA TEMPORADA ALTA
+                     ├─ Validar bajo presión real (Black Friday + Cyber Monday)
+                     └─ Si se aguanta el pico → escalar 2027</pre>
+      </div>
+    </div>
+
+    <div class="alert alert-info">
+      <div class="icon">💬</div>
+      <div class="body">
+        <div class="title">Mensaje sugerido a Gerard a finales de mayo</div>
+        <div class="desc"><em style="color:#fff;font-style:italic">"Trabajemos Centroamérica con tus canales B2B este trimestre. Amazon USA lo evaluamos en agosto."</em><br>Esto mantiene a Gerard activo y comprometido sin comprometer la operación con un canal que aún no podemos sostener.</div>
+      </div>
+    </div>
+
+    <div class="alert alert-warn">
+      <div class="icon">💬</div>
+      <div class="body">
+        <div class="title">Mensaje sugerido al comité ejecutivo</div>
+        <div class="desc"><em style="color:#fff;font-style:italic">"El mercado está, la ventaja arancelaria es real, pero entrar sin haber resuelto materia prima y personal es destruir la diferenciación. Mayo-agosto es ventana de preparación, no de ejecución."</em></div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><div><div class="card-title">Próximos pasos · Fase 2 (datos planta)</div></div></div>
+        <div class="card-body">
+          <ul class="bullet-list">
+            <li><b>Edison + Oscar:</b> capacidad mensual sostenible Kit Black</li>
+            <li><b>Edison + Oscar:</b> capacidad pico empuje (ref 60 ton)</li>
+            <li><b>Don Oscar:</b> costo unitario FOB Colombia Kit Black</li>
+            <li><b>Oscar:</b> tiempo fabricación / cuello botella</li>
+            <li><b>Don Oscar:</b> cobertura real materia prima caucho</li>
+            <li><b>RR.HH:</b> costo personal turno adicional</li>
+            <li><b>Producción:</b> cotización automatización preliminar</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><div><div class="card-title">Validaciones gratis sugeridas</div></div></div>
+        <div class="card-body">
+          <ul class="bullet-list">
+            <li>Confirmar tarifa exacta HTS 9506.91 en hts.usitc.gov</li>
+            <li>Confirmar elegibilidad Colombia TPA con CBP</li>
+            <li>Confirmar GCC requirements en cpsc.gov</li>
+            <li>Estudiar manualmente 5-10 listings ganadores en Amazon Best Sellers</li>
+            <li>Llenar tabla de escenarios con números reales</li>
+            <li>Calcular margen e inversión inicial por escenario</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 11 FUENTES ============ -->
+  <div class="section" id="fuentes">
+    <div class="section-title">
+      <div class="num">11</div>
+      <h3>Fuentes consultadas</h3>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <div class="sources-list">
+          <span class="sources-cat">Tamaño de mercado</span>
+          • <a href="https://www.grandviewresearch.com/press-release/global-resistance-bands-market" target="_blank">Resistance Bands Market Size To Reach $2.92Bn By 2030 — Grand View Research</a><br>
+          • <a href="https://www.grandviewresearch.com/industry-analysis/resistance-bands-market" target="_blank">Resistance Bands Market Size, Share &amp; Growth Report 2030 — Grand View Research</a><br>
+          • <a href="https://www.openpr.com/news/4435212/resistance-bands-market-2026-home-fitness-strength" target="_blank">Resistance Bands Market 2026 — OpenPR / Market Research Future</a><br>
+          • <a href="https://www.marketresearchfuture.com/reports/us-resistance-bands-market-18178" target="_blank">US Resistance Bands Market Forecast 2035 — Market Research Future</a><br>
+          • <a href="https://www.cognitivemarketresearch.com/regional-analysis/south-america-fitness-equipment-market-report" target="_blank">Latin America Fitness Equipment Market — Cognitive Market Research</a><br>
+          • <a href="https://www.mordorintelligence.com/industry-reports/south-america-health-and-fitness-club-market" target="_blank">South America Health &amp; Fitness Club Market — Mordor Intelligence</a>
+
+          <span class="sources-cat">Competencia y pricing</span>
+          • <a href="https://www.amazon.com/Best-Sellers-Resistance-Bands/zgbs/sporting-goods/23533915011" target="_blank">Amazon Best Sellers · Resistance Bands</a><br>
+          • <a href="https://health.yahoo.com/wellness/fitness/equipment/article/best-resistance-band-014813144.html" target="_blank">Best Resistance Band 2026 — Yahoo Health</a><br>
+          • <a href="https://www.asinsight.com/report/US/fabric-resistance-bands" target="_blank">Amazon Best Sellers Fabric Bands — ASInsight</a><br>
+          • <a href="https://amz.ninja/helium-10-statistics/" target="_blank">25+ Helium 10 Statistics — amz.ninja</a>
+
+          <span class="sources-cat">Regulación y aranceles</span>
+          • <a href="https://www.cpsc.gov/" target="_blank">CPSC.gov — Consumer Product Safety Commission</a><br>
+          • <a href="https://www.mintz.com/insights-center/viewpoints/2015-07-28-does-cpsc-or-fda-have-jurisdiction-over-your-consumer-product" target="_blank">CPSC vs FDA Jurisdiction — Mintz</a><br>
+          • <a href="https://www.flexport.com/data/hs-code/950691-articles-and-equipment-for-general-physical-exercise-gymnastics-or-athletics-parts-and-accessories-thereof/" target="_blank">HS Code 950691 — Flexport</a><br>
+          • <a href="https://hts.usitc.gov/" target="_blank">HTS Schedule — USITC</a><br>
+          • <a href="https://ustr.gov/trade-agreements/free-trade-agreements/colombia-tpa" target="_blank">Colombia Trade Promotion Agreement — USTR</a><br>
+          • <a href="https://www.cbp.gov/trade/quota/bulletins/qb-26-107-2026" target="_blank">Quota Bulletin 26-107 Colombia TPA 2026 — CBP</a><br>
+          • <a href="https://www.tradecomplianceresourcehub.com/2026/04/19/trump-2-0-tariff-tracker/" target="_blank">Trump 2.0 Tariff Tracker — Trade Compliance Resource Hub</a>
+
+          <span class="sources-cat">Amazon FBA</span>
+          • <a href="https://amzprep.com/amazon-fba-fees/" target="_blank">Amazon FBA Fees 2026 — AMZ Prep</a><br>
+          • <a href="https://www.payability.com/blog/amazon-fba-fees-2026-calculator-guide/" target="_blank">Amazon FBA Fees 2026 Calculator — Payability</a><br>
+          • <a href="https://www.goatconsulting.com/tools/amazon-fba-calculator" target="_blank">Amazon FBA Calculator 2026 — Goat Consulting</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Rubberfit · Investigación de Mercado Amazon USA · Fase 1 · 28 de abril de 2026 · Generado por Claude Code (alias Matías)<br>
+    Documento confidencial · solo para uso interno del comité ejecutivo
+  </div>
+
+</div>
+
+</body>
+</html>

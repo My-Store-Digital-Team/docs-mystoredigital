@@ -15,7 +15,7 @@ const path = require("path");
 const DOCS_DIR = path.join(__dirname, "docs");
 const OUT = path.join(__dirname, "index.html");
 
-const ORDER = ["INFRAESTRUCTURA", "AUTOMATIZACIÓN", "CAPACIDADES"];
+const ORDER = ["INFRAESTRUCTURA", "AUTOMATIZACIÓN", "CAPACIDADES", "ANÁLISIS DE MERCADO"];
 
 function extract(html, name) {
   const tag = name === "title"

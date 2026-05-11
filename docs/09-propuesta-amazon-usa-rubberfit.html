@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuesta Amazon USA v2 — Rubberfit</title>
+<meta name="description" content="Propuesta de entrada al mercado USA vía Amazon: pricing, P&L unitario, fases de despliegue y métricas de éxito (caso Rubberfit).">
+<meta name="category" content="ANÁLISIS DE MERCADO">
+<meta name="date" content="2026-05-09">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23F7931E'/%3E%3Cstop offset='100%25' stop-color='%23E07A0A'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='Arial Black,Arial,sans-serif' font-size='40' font-weight='900' fill='white'%3ER%3C/text%3E%3C/svg%3E">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+  :root{--o:#F7931E;--od:#E07A0A;--d:#1A1A2E;--d2:#16213E;--g5:#6B7280;--g3:#94A3B8;--w:#FFF;--gr:#10B981;--r:#EF4444;--b:#3B82F6;--y:#F59E0B;--p:#8B5CF6}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',sans-serif;background:#0f111a;color:#e2e8f0;min-height:100vh;line-height:1.55}
+  .topbar{background:linear-gradient(90deg,var(--d),var(--d2));padding:16px 30px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--o);position:sticky;top:0;z-index:100}
+  .topbar h1{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--w)}
+  .topbar h1 span{color:var(--o)}
+  .topbar .meta{font-size:12px;color:var(--g5);display:flex;gap:20px}
+  .topbar .meta span{color:var(--o);font-weight:600}
+  .v-badge{background:var(--o);color:var(--d);padding:3px 10px;border-radius:6px;font-weight:800;font-size:11px;letter-spacing:1px;font-family:'Space Grotesk'}
+  .container{max-width:1280px;margin:0 auto;padding:24px}
+
+  .hero{background:linear-gradient(135deg,#1e2235,#161927);border-radius:18px;padding:36px;border:1px solid #2a2f45;margin-bottom:28px;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:-50px;right:-50px;width:300px;height:300px;background:radial-gradient(circle,rgba(247,147,30,.15),transparent 70%)}
+  .hero-tag{display:inline-block;background:rgba(16,185,129,.18);color:var(--gr);padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px}
+  .hero h2{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:800;color:var(--w);margin-bottom:10px;line-height:1.2;position:relative}
+  .hero p{font-size:15px;color:var(--g3);max-width:780px;position:relative}
+  .hero-meta{display:flex;gap:30px;margin-top:22px;flex-wrap:wrap;position:relative}
+  .hero-meta div{font-size:12px;color:var(--g5)}
+  .hero-meta div b{color:var(--w);display:block;font-size:13px;margin-top:2px;font-weight:600}
+
+  .stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:28px}
+  .stat{background:linear-gradient(135deg,#1e2235,#161927);border-radius:14px;padding:20px;border:1px solid #2a2f45;transition:all .2s;position:relative}
+  .stat:hover{border-color:var(--o);transform:translateY(-2px)}
+  .stat-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--g5);font-weight:600;margin-bottom:8px}
+  .stat-value{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:800;line-height:1.1}
+  .stat-sub{font-size:11px;color:var(--g5);margin-top:6px}
+  .stat.o .stat-value{color:var(--o)}.stat.g .stat-value{color:var(--gr)}.stat.r .stat-value{color:var(--r)}.stat.b .stat-value{color:var(--b)}.stat.y .stat-value{color:var(--y)}.stat.p .stat-value{color:var(--p)}
+
+  .section{margin-bottom:36px;scroll-margin-top:80px}
+  .section-title{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+  .section-title .num{background:var(--o);color:var(--d);width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:16px}
+  .section-title h3{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--w)}
+
+  .card{background:linear-gradient(135deg,#1e2235,#161927);border-radius:14px;border:1px solid #2a2f45;overflow:hidden;margin-bottom:18px}
+  .card-header{padding:18px 24px 14px;border-bottom:1px solid #2a2f45;display:flex;align-items:center;justify-content:space-between}
+  .card-title{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;color:var(--w)}
+  .card-sub{font-size:12px;color:var(--g5);margin-top:2px}
+  .card-body{padding:22px 24px}
+  .card-body p{margin-bottom:12px;color:var(--g3);font-size:14px}
+  .card-body p:last-child{margin-bottom:0}
+  .card-body strong{color:var(--w);font-weight:600}
+  .card-body em{color:var(--o);font-style:normal;font-weight:600}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  thead th{text-align:left;padding:11px 14px;color:var(--g5);font-size:10px;text-transform:uppercase;letter-spacing:.5px;font-weight:700;border-bottom:1px solid #2a2f45;background:#161927}
+  tbody td{padding:12px 14px;border-bottom:1px solid #1a1f35;color:var(--g3)}
+  tbody tr:hover{background:rgba(247,147,30,.04)}
+  tbody tr:last-child td{border-bottom:none}
+  .mono{font-family:'Space Grotesk',monospace;font-weight:600;color:var(--w)}
+  .text-right{text-align:right}.text-center{text-align:center}
+
+  .badge{display:inline-block;padding:3px 9px;border-radius:14px;font-size:10px;font-weight:700;letter-spacing:.3px}
+  .badge-green{background:rgba(16,185,129,.15);color:var(--gr)}
+  .badge-yellow{background:rgba(245,158,11,.15);color:var(--y)}
+  .badge-red{background:rgba(239,68,68,.15);color:var(--r)}
+  .badge-blue{background:rgba(59,130,246,.15);color:var(--b)}
+  .badge-orange{background:rgba(247,147,30,.15);color:var(--o)}
+  .badge-purple{background:rgba(139,92,246,.15);color:var(--p)}
+  .badge-gray{background:rgba(107,114,128,.15);color:var(--g3)}
+
+  .alert{border-radius:12px;padding:16px 22px;margin-bottom:18px;display:flex;gap:14px;align-items:flex-start;border:1px solid}
+  .alert .icon{font-size:22px;line-height:1;flex-shrink:0}
+  .alert .body{flex:1}
+  .alert .title{font-weight:700;font-size:13px;margin-bottom:4px}
+  .alert .desc{font-size:13px;color:var(--g3);line-height:1.5}
+  .alert-success{background:linear-gradient(90deg,rgba(16,185,129,.08),rgba(16,185,129,.02));border-color:rgba(16,185,129,.25)}
+  .alert-success .title{color:var(--gr)}
+  .alert-warn{background:linear-gradient(90deg,rgba(245,158,11,.08),rgba(245,158,11,.02));border-color:rgba(245,158,11,.25)}
+  .alert-warn .title{color:var(--y)}
+  .alert-danger{background:linear-gradient(90deg,rgba(239,68,68,.08),rgba(239,68,68,.02));border-color:rgba(239,68,68,.25)}
+  .alert-danger .title{color:var(--r)}
+  .alert-orange{background:linear-gradient(90deg,rgba(247,147,30,.08),rgba(247,147,30,.02));border-color:rgba(247,147,30,.3)}
+  .alert-orange .title{color:var(--o)}
+  .alert-info{background:linear-gradient(90deg,rgba(59,130,246,.08),rgba(59,130,246,.02));border-color:rgba(59,130,246,.25)}
+  .alert-info .title{color:var(--b)}
+
+  .reco-card{background:linear-gradient(135deg,rgba(16,185,129,.18),rgba(16,185,129,.04));border:2px solid var(--gr);border-radius:18px;padding:30px;margin-bottom:24px;position:relative;overflow:hidden}
+  .reco-card::before{content:'';position:absolute;top:-30px;right:-30px;width:200px;height:200px;background:radial-gradient(circle,rgba(16,185,129,.2),transparent 70%);pointer-events:none}
+  .reco-tag{display:inline-block;background:var(--gr);color:#053024;padding:6px 16px;border-radius:20px;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px}
+  .reco-card h3{font-family:'Space Grotesk',sans-serif;font-size:28px;color:var(--w);margin-bottom:10px}
+  .reco-card .subt{color:var(--g3);font-size:14px;max-width:700px;margin-bottom:20px}
+  .reco-phases{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+  .reco-phase{background:rgba(0,0,0,.25);border-radius:12px;padding:18px;border:1px solid rgba(16,185,129,.2)}
+  .reco-phase .lbl{font-size:10px;color:var(--gr);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+  .reco-phase h4{color:var(--w);font-size:15px;margin-bottom:8px;font-family:'Space Grotesk',sans-serif}
+  .reco-phase ul{list-style:none;padding:0;margin:0}
+  .reco-phase li{font-size:12px;color:var(--g3);padding:4px 0;padding-left:16px;position:relative}
+  .reco-phase li::before{content:'›';position:absolute;left:0;color:var(--gr);font-weight:700}
+
+  ul.bullet-list{list-style:none;padding:0;margin:0}
+  ul.bullet-list li{padding:6px 0 6px 22px;position:relative;font-size:13px;color:var(--g3)}
+  ul.bullet-list li::before{content:'■';position:absolute;left:0;color:var(--o);font-size:10px;top:9px}
+  ul.bullet-list li b{color:var(--w);font-weight:600}
+
+  .toc{background:#161927;border-radius:12px;padding:18px 22px;border:1px solid #2a2f45;margin-bottom:28px}
+  .toc-title{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:var(--g5);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+  .toc-items{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .toc-items a{color:var(--g3);text-decoration:none;font-size:13px;padding:6px 10px;border-radius:6px;transition:all .15s;display:block}
+  .toc-items a:hover{background:rgba(247,147,30,.08);color:var(--o)}
+  .toc-items a span{color:var(--o);font-weight:700;margin-right:8px}
+
+  .timeline-card{background:#161927;border-radius:12px;padding:18px;border:1px solid #2a2f45;margin-bottom:14px}
+  .timeline-card.may{border-left:3px solid var(--o)}
+  .timeline-card.jun{border-left:3px solid var(--y)}
+  .timeline-card.jul{border-left:3px solid var(--gr)}
+  .timeline-month{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+  .timeline-card.may .timeline-month{color:var(--o)}
+  .timeline-card.jun .timeline-month{color:var(--y)}
+  .timeline-card.jul .timeline-month{color:var(--gr)}
+  .timeline-week{margin-top:12px;padding-top:12px;border-top:1px dashed #2a2f45}
+  .timeline-week:first-child{margin-top:0;padding-top:0;border-top:none}
+  .timeline-week-title{font-weight:600;color:var(--w);font-size:13px;margin-bottom:6px}
+  .timeline-week ul{list-style:none;padding:0;margin:0}
+  .timeline-week li{font-size:12px;color:var(--g3);padding:3px 0 3px 16px;position:relative}
+  .timeline-week li::before{content:'☐';position:absolute;left:0;color:var(--g5);font-size:10px}
+
+  .price-card{background:linear-gradient(135deg,#1e2235,#161927);border-radius:14px;border:1px solid #2a2f45;padding:24px}
+  .price-card.training{border:2px solid var(--p)}
+  .price-card.black{border:2px solid var(--o)}
+  .price-card-name{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:var(--w);margin-bottom:4px}
+  .price-card-price{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:32px;margin:8px 0}
+  .price-card.training .price-card-price{color:var(--p)}
+  .price-card.black .price-card-price{color:var(--o)}
+  .price-table{font-family:'Space Grotesk',monospace;font-size:13px;margin-top:14px}
+  .price-table div{display:flex;justify-content:space-between;padding:5px 0}
+  .price-table .neg{color:var(--r)}
+  .price-table .pos{color:var(--gr)}
+  .price-table .net{font-weight:700;color:var(--w);border-top:1px dashed #2a2f45;border-bottom:1px dashed #2a2f45;padding:8px 0;margin:6px 0}
+  .price-table .margin{font-weight:800;color:var(--gr);font-size:15px;padding-top:10px}
+
+  .change-table tbody td{padding:14px}
+  .change-row{background:rgba(247,147,30,.05)}
+
+  .footer{text-align:center;color:var(--g5);font-size:11px;padding:30px 0;border-top:1px solid #2a2f45;margin-top:40px}
+
+  @media print{
+    body{background:#fff;color:#000}
+    .topbar{position:static;background:#fff;color:#000;border-bottom:2px solid #F7931E}
+    .topbar h1{color:#000}
+    .hero,.card,.stat,.toc,.alert,.reco-card,.timeline-card,.price-card{background:#fff!important;border:1px solid #ccc!important;color:#000!important;page-break-inside:avoid}
+    .stat-value,.card-title,.section-title h3,.price-card-name{color:#000!important}
+    table thead th{background:#f5f5f5;color:#000}
+    table tbody td{color:#222}
+    .section{page-break-inside:avoid}
+  }
+
+  @media (max-width:1024px){
+    .stats-row{grid-template-columns:repeat(2,1fr)}
+    .grid-2,.grid-3{grid-template-columns:1fr}
+    .toc-items{grid-template-columns:1fr 1fr}
+    .reco-phases{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <h1>Propuesta Amazon USA · Rubberfit <span class="v-badge">v2</span></h1>
+  <div class="meta">
+    <div>Reunión 8-may · Opción B</div>
+    <div>Listings live: <span>julio 2026</span></div>
+    <div>Postura: <span>GO con preparación corta</span></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">✓ Propuesta aprobada · Opción B · listings julio</div>
+    <h2>GO con preparación corta · 2 SKUs · listings activos en julio 2026</h2>
+    <p>Esta es la <b style="color:#fff">v2 ajustada con las 11 dudas de la reunión del 8 de mayo</b>. Reemplaza la postura de "NO entrar" de la v1 (28-abr) por <b style="color:#fff">"SÍ entrar con preparación corta"</b> según decisión del comité: <em style="color:var(--o);font-style:italic">"No hay por qué demorarnos más"</em> — Don Oscar.</p>
+    <div class="hero-meta">
+      <div>SKUs piloto<b>Kit Training + Kit Black</b></div>
+      <div>Volumen objetivo<b>2.500 unid/mes (mix 60/40)</b></div>
+      <div>Preparación<b>Mayo (4 semanas) + Junio (logística)</b></div>
+      <div>Inversión inicial<b>$78K - $101K USD</b></div>
+    </div>
+  </div>
+
+  <!-- TOC -->
+  <div class="toc">
+    <div class="toc-title">Contenido</div>
+    <div class="toc-items">
+      <a href="#cambios"><span>00</span>Cambios respecto a v1</a>
+      <a href="#summary"><span>01</span>Executive Summary</a>
+      <a href="#escenarios"><span>02</span>Escenarios recalculados</a>
+      <a href="#financiero"><span>03</span>Modelo financiero</a>
+      <a href="#inversion"><span>04</span>Inversión inicial</a>
+      <a href="#cronograma"><span>05</span>Cronograma detallado</a>
+      <a href="#procedimiento"><span>06</span>Procedimiento Amazon</a>
+      <a href="#erp"><span>07</span>ERP · prerrequisito</a>
+      <a href="#riesgos"><span>08</span>Riesgos actualizados</a>
+      <a href="#aprobaciones"><span>09</span>Decisiones del comité</a>
+    </div>
+  </div>
+
+  <!-- ============ 00 CAMBIOS ============ -->
+  <div class="section" id="cambios">
+    <div class="section-title">
+      <div class="num">00</div>
+      <h3>Cambios v1 → v2</h3>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">¿Qué cambió tras la reunión del 8 de mayo?</div>
+          <div class="card-sub">Las 11 dudas reformularon la propuesta inicial</div>
+        </div>
+      </div>
+      <div class="card-body" style="padding:0">
+        <table class="change-table">
+          <thead><tr><th>Tema</th><th>v1 · 28-abril</th><th>v2 · 8-mayo</th></tr></thead>
+          <tbody>
+            <tr class="change-row"><td><b style="color:#fff">Postura</b></td><td>NO entrar todavía · ventana Q3-Q4</td><td><span class="badge badge-green">SÍ entrar · listings julio</span></td></tr>
+            <tr class="change-row"><td><b style="color:#fff">SKUs piloto</b></td><td>Solo Kit Black</td><td><span class="badge badge-orange">Kit Training + Kit Black</span></td></tr>
+            <tr class="change-row"><td><b style="color:#fff">Mercado base</b></td><td>$750M USA total</td><td><span class="badge badge-blue">$375M sub-mercado kits</span></td></tr>
+            <tr class="change-row"><td><b style="color:#fff">Flete Colombia→USA</b></td><td>"Despreciable" (error)</td><td><span class="badge badge-red">$2.00 USD/unid · cuantificado</span></td></tr>
+            <tr class="change-row"><td><b style="color:#fff">Pricing</b></td><td>Solo $24.99-29.99</td><td><span class="badge badge-purple">$24.99-29.99 + $34.99-39.99</span></td></tr>
+            <tr class="change-row"><td><b style="color:#fff">ERP</b></td><td>Mediados de mayo</td><td><span class="badge badge-orange">Adelantar urgente</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="alert alert-info">
+      <div class="icon">📄</div>
+      <div class="body">
+        <div class="title">Documentos relacionados</div>
+        <div class="desc">Las 11 respuestas detalladas están en <b style="color:#fff">Reunion_8_Mayo_Respuestas_Dudas_Amazon.md</b>. La v1 original se conserva intacta en <b style="color:#fff">01_Mercado_Externo_Amazon_USA.html</b> para trazabilidad.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 01 EXECUTIVE SUMMARY ============ -->
+  <div class="section" id="summary">
+    <div class="section-title">
+      <div class="num">01</div>
+      <h3>Executive Summary</h3>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat o">
+        <div class="stat-label">Sub-mercado target</div>
+        <div class="stat-value">$375M</div>
+        <div class="stat-sub">USD/año · solo kits</div>
+      </div>
+      <div class="stat g">
+        <div class="stat-label">Escenario hojita</div>
+        <div class="stat-value">$125M</div>
+        <div class="stat-sub">COP/mes · 0.1% sub-mercado</div>
+      </div>
+      <div class="stat b">
+        <div class="stat-label">Escenario conservador</div>
+        <div class="stat-value">$375M</div>
+        <div class="stat-sub">COP/mes · 0.3% sub-mercado</div>
+      </div>
+      <div class="stat y">
+        <div class="stat-label">Volumen piloto</div>
+        <div class="stat-value">2.500</div>
+        <div class="stat-sub">unidades/mes mix</div>
+      </div>
+      <div class="stat p">
+        <div class="stat-label">Inversión inicial</div>
+        <div class="stat-value">~$90K</div>
+        <div class="stat-sub">USD · ~$360M COP</div>
+      </div>
+    </div>
+
+    <div class="reco-card">
+      <div class="reco-tag">★ Recomendación final · OPCIÓN B aprobada</div>
+      <h3>GO con preparación corta · listings live en julio 2026</h3>
+      <p class="subt">Mayo (preparación) → Junio (producción + logística) → Julio (listings live). Mantenemos la ventaja arancelaria Colombia TPA = 0% como insight estructural. Pricing mid-premium para no competir con chinos por precio bajo.</p>
+
+      <div class="reco-phases">
+        <div class="reco-phase">
+          <div class="lbl">Mayo · 4 semanas</div>
+          <h4>Preparación técnica + comercial</h4>
+          <ul>
+            <li>Cuenta Amazon Seller Pro</li>
+            <li>Trademark Rubberfit USPTO</li>
+            <li>GS1 + GTINs nuevos</li>
+            <li>Cotización fletes + fotos</li>
+            <li>Cierre Fase 2 capacidad planta</li>
+            <li>Adelantar ERP</li>
+          </ul>
+        </div>
+        <div class="reco-phase">
+          <div class="lbl">Junio · 4 semanas</div>
+          <h4>Producción + logística</h4>
+          <ul>
+            <li>Producción del primer lote</li>
+            <li>Sesión fotográfica profesional</li>
+            <li>Redacción de listings</li>
+            <li>FNSKU + etiquetado</li>
+            <li>Despacho primer contenedor</li>
+          </ul>
+        </div>
+        <div class="reco-phase">
+          <div class="lbl">Julio · go live</div>
+          <h4>Listings activos en USA</h4>
+          <ul>
+            <li>Recepción Amazon (1-3 sem)</li>
+            <li>Listings live</li>
+            <li>Sponsored Products inicial</li>
+            <li>Vine Reviews ($400 USD)</li>
+            <li>Monitoreo diario + informe semanal</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-orange">
+      <div class="icon">★</div>
+      <div class="body">
+        <div class="title">Ventaja arancelaria sigue siendo el insight más fuerte</div>
+        <div class="desc">Colombia TPA = <b style="color:var(--gr)">0% arancel</b> vs China <b style="color:var(--r)">~22-40%</b>. Esto se traduce en margen extra que se puede convertir en pricing premium ($25-39 USD) sin romper la diferenciación de calidad. <b style="color:#fff">No bajar precios</b> para "ser competitivos" — eso destruye el posicionamiento y nos pone a pelear con chinos.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 02 ESCENARIOS ============ -->
+  <div class="section" id="escenarios">
+    <div class="section-title">
+      <div class="num">02</div>
+      <h3>Escenarios recalculados · sub-mercado kits</h3>
+    </div>
+
+    <div class="alert alert-warn">
+      <div class="icon">⚠</div>
+      <div class="body">
+        <div class="title">Corrección importante respecto a v1</div>
+        <div class="desc">El mercado total de "resistance bands" en USA ($750M/año) incluye bandas sueltas, terapéuticas y accesorios. El <b style="color:#fff">sub-mercado real de kits con accesorios</b> (target Rubberfit) pesa <b style="color:#fff">~$375M/año, la mitad</b>. Los escenarios v2 se calculan sobre esta base más estrecha y realista.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Tabla maestra v2 · sub-mercado kits ($375M/año)</div>
+          <div class="card-sub">Cálculos a precio promedio $30 USD/kit</div>
+        </div>
+      </div>
+      <div class="card-body" style="padding:0">
+        <table>
+          <thead>
+            <tr><th>Escenario</th><th class="text-right">Share</th><th class="text-right">Anual USD</th><th class="text-right">Mensual USD</th><th class="text-right">Unid/mes</th><th class="text-right">COP/mes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><b style="color:var(--gr)">Hojita</b></td><td class="text-right mono">0.1%</td><td class="text-right mono">$375K</td><td class="text-right mono">$31K</td><td class="text-right mono">~1.000</td><td class="text-right mono" style="color:var(--gr)">$125M</td></tr>
+            <tr style="background:rgba(247,147,30,.06)"><td><b style="color:var(--o)">Conservador ★</b></td><td class="text-right mono">0.3%</td><td class="text-right mono">$1.13M</td><td class="text-right mono">$94K</td><td class="text-right mono">~3.150</td><td class="text-right mono" style="color:var(--o);font-size:15px"><b>$375M</b></td></tr>
+            <tr><td><b style="color:var(--b)">Realista</b></td><td class="text-right mono">1%</td><td class="text-right mono">$3.75M</td><td class="text-right mono">$313K</td><td class="text-right mono">~10.500</td><td class="text-right mono">$1.250M</td></tr>
+            <tr><td><b style="color:var(--p)">Ambicioso</b></td><td class="text-right mono">2%</td><td class="text-right mono">$7.5M</td><td class="text-right mono">$625K</td><td class="text-right mono">~21.000</td><td class="text-right mono">$2.500M</td></tr>
+            <tr><td><b style="color:var(--y)">Manzana</b></td><td class="text-right mono">5%</td><td class="text-right mono">$18.75M</td><td class="text-right mono">$1.56M</td><td class="text-right mono">~52.000</td><td class="text-right mono">$6.250M</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="alert alert-success">
+      <div class="icon">✓</div>
+      <div class="body">
+        <div class="title">Decisión piloto · 2.500 unidades/mes mix 60/40</div>
+        <div class="desc">Entre el escenario hojita (1.000 unid) y el conservador (3.150 unid), apuntamos a <b style="color:#fff">2.500 unidades/mes mixto</b> (60% Kit Black + 40% Kit Training). Es lo que la planta debería poder garantizar tras la preparación de mayo, y entrega ~$300M COP/mes en revenue Amazon — superando el target Colombia de $25M COP/mes en un solo canal externo.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 03 MODELO FINANCIERO ============ -->
+  <div class="section" id="financiero">
+    <div class="section-title">
+      <div class="num">03</div>
+      <h3>Modelo financiero por SKU · con flete real</h3>
+    </div>
+
+    <div class="grid-2">
+      <div class="price-card black">
+        <div class="price-card-name">Kit Black</div>
+        <div style="color:var(--g5);font-size:12px">Sweet spot · 60% del mix</div>
+        <div class="price-card-price">$29.99</div>
+        <div class="price-table">
+          <div>Precio venta Amazon<span class="mono">$29.99</span></div>
+          <div class="neg">- Referral fee 15%<span>-$4.50</span></div>
+          <div class="neg">- FBA fulfillment<span>-$3.65</span></div>
+          <div class="neg">- Storage<span>-$0.30</span></div>
+          <div class="neg">- Fuel surcharge 3.5%<span>-$1.05</span></div>
+          <div class="net">Net Amazon → Rubberfit<span>$20.49</span></div>
+          <div class="neg">- Inbound Colombia→FBA ★<span>-$2.00</span></div>
+          <div class="pos">+ Aterrizaje USA (TPA)<span>$0.00</span></div>
+          <div class="neg">- COGS estimado<span>-$8.00</span></div>
+          <div class="margin">Margen unitario<span>$10.49 (35%)</span></div>
+        </div>
+      </div>
+
+      <div class="price-card training">
+        <div class="price-card-name">Kit Training</div>
+        <div style="color:var(--g5);font-size:12px">Mid-premium · 40% del mix</div>
+        <div class="price-card-price">$39.99</div>
+        <div class="price-table">
+          <div>Precio venta Amazon<span class="mono">$39.99</span></div>
+          <div class="neg">- Referral fee 15%<span>-$6.00</span></div>
+          <div class="neg">- FBA fulfillment<span>-$3.65</span></div>
+          <div class="neg">- Storage<span>-$0.40</span></div>
+          <div class="neg">- Fuel surcharge 3.5%<span>-$1.40</span></div>
+          <div class="net">Net Amazon → Rubberfit<span>$28.54</span></div>
+          <div class="neg">- Inbound Colombia→FBA ★<span>-$2.00</span></div>
+          <div class="pos">+ Aterrizaje USA (TPA)<span>$0.00</span></div>
+          <div class="neg">- COGS estimado<span>-$10.00</span></div>
+          <div class="margin">Margen unitario<span>$16.54 (41%)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-success">
+      <div class="icon">$</div>
+      <div class="body">
+        <div class="title">Margen mensual proyectado · piloto 2.500 unidades</div>
+        <div class="desc">
+          • 1.500 Kit Black × $10.49 = <b style="color:var(--gr)">$15.735 USD/mes</b><br>
+          • 1.000 Kit Training × $16.54 = <b style="color:var(--gr)">$16.540 USD/mes</b><br>
+          • <b style="color:#fff">Total margen mensual estimado: ~$32.275 USD ≈ ~$129M COP/mes</b><br>
+          Este margen es <b>incremental</b>, sobre Amazon. Suma a las ventas Colombia, no las reemplaza.
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-info">
+      <div class="icon">ⓘ</div>
+      <div class="body">
+        <div class="title">Insight · empujar mix hacia Kit Training</div>
+        <div class="desc">El Kit Training tiene <b style="color:#fff">mejor margen porcentual (41% vs 35%)</b> porque las comisiones FBA son planas. A volúmenes mayores conviene aumentar el mix Training/Black hacia 50/50 o 60/40 a favor de Training.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 04 INVERSIÓN ============ -->
+  <div class="section" id="inversion">
+    <div class="section-title">
+      <div class="num">04</div>
+      <h3>Inversión inicial estimada</h3>
+    </div>
+
+    <div class="card">
+      <div class="card-body" style="padding:0">
+        <table>
+          <thead><tr><th>Concepto</th><th class="text-right">Costo USD</th><th>Notas</th></tr></thead>
+          <tbody>
+            <tr><td>Trademark "Rubberfit" USPTO</td><td class="text-right mono">$1.500 - $2.000</td><td>Con abogado · 9-12 meses</td></tr>
+            <tr><td>Refresh GS1 Colombia + GTINs</td><td class="text-right mono">$300 - $500</td><td>Membresía anual</td></tr>
+            <tr><td>Sesión fotográfica profesional 2 SKUs</td><td class="text-right mono">$800 - $1.500</td><td>$400-800 por SKU</td></tr>
+            <tr><td>Cuenta Amazon Seller Pro (anualidad)</td><td class="text-right mono">$480</td><td>$39.99/mes</td></tr>
+            <tr style="background:rgba(247,147,30,.06)"><td><b style="color:var(--o)">Inventario inicial · 3 meses cobertura</b></td><td class="text-right mono" style="color:var(--o);font-size:15px"><b>$60.000 - $75.000</b></td><td><b style="color:#fff">El grueso · 7.500 unid × COGS $8-10</b></td></tr>
+            <tr><td>Flete inicial Colombia → USA (1 contenedor LCL)</td><td class="text-right mono">$3.000 - $5.000</td><td>LCL inicial recomendado</td></tr>
+            <tr><td>Vine Reviews iniciales (2 SKUs)</td><td class="text-right mono">$400</td><td>$200 × 2</td></tr>
+            <tr><td>Sponsored Products presupuesto inicial</td><td class="text-right mono">$1.000</td><td>$300/mes piloto</td></tr>
+            <tr><td>Margen de contingencia (20%)</td><td class="text-right mono">$13.000 - $17.000</td><td>Imprevistos</td></tr>
+            <tr style="background:rgba(16,185,129,.06)"><td><b style="color:var(--gr)">TOTAL INVERSIÓN INICIAL</b></td><td class="text-right mono" style="color:var(--gr);font-size:18px"><b>$80.480 - $101.880</b></td><td><b style="color:#fff">~$320M - $407M COP</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="alert alert-warn">
+      <div class="icon">!</div>
+      <div class="body">
+        <div class="title">El 75-80% de la inversión es inventario</div>
+        <div class="desc">Setup técnico (cuenta, marca, fotos, GS1) son ~$5K USD. El grueso del capital se va en producir 3 meses de cobertura para no quebrar FBA. <b style="color:#fff">La pregunta del comité no es "podemos pagar Amazon" sino "podemos producir y financiar 7.500 unidades anticipadas".</b></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 05 CRONOGRAMA ============ -->
+  <div class="section" id="cronograma">
+    <div class="section-title">
+      <div class="num">05</div>
+      <h3>Cronograma detallado</h3>
+    </div>
+
+    <div class="timeline-card may">
+      <div class="timeline-month">★ Mayo · Preparación</div>
+
+      <div class="timeline-week">
+        <div class="timeline-week-title">Semana 1 · 12-18 mayo</div>
+        <ul>
+          <li>Crear cuenta Amazon Seller Central Professional ($39.99/mes)</li>
+          <li>Contratar abogado de marcas + iniciar trámite USPTO Rubberfit</li>
+          <li>Refresh cuenta GS1 Colombia + generar GTINs Kit Training y Kit Black</li>
+          <li>Reunión Edison ↔ Oscar producción para cerrar Fase 2 (datos planta)</li>
+        </ul>
+      </div>
+
+      <div class="timeline-week">
+        <div class="timeline-week-title">Semana 2 · 19-25 mayo</div>
+        <ul>
+          <li>Cotizar 3 freight forwarders (Flexport, iContainers, Freightos)</li>
+          <li>Cotizar 2 estudios de fotografía de producto</li>
+          <li>Adelantar implementación ERP (decisión del comité)</li>
+          <li>Auditar empaque actual: ¿cumple dimensiones FBA small standard?</li>
+        </ul>
+      </div>
+
+      <div class="timeline-week">
+        <div class="timeline-week-title">Semana 3 · 26 may - 1 jun</div>
+        <ul>
+          <li>Cierre Fase 2: capacidad real planta confirmada</li>
+          <li>Aprobación final del comité: precios, volumen piloto, mix de SKUs</li>
+          <li>Selección freight forwarder + estudio fotografía</li>
+          <li>Iniciar adaptación de empaque (etiqueta inglés, FNSKU Amazon)</li>
+        </ul>
+      </div>
+
+      <div class="timeline-week">
+        <div class="timeline-week-title">Semana 4 · 2-8 junio · bisagra</div>
+        <ul>
+          <li>Producción inicial Kit Training + Kit Black para piloto FBA</li>
+          <li>Sesión fotográfica profesional</li>
+          <li>Redacción de listings (título, bullets, descripción) en inglés</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-card jun">
+      <div class="timeline-month">Junio · Producción + logística</div>
+      <div class="timeline-week">
+        <div class="timeline-week-title">Semanas 1-2</div>
+        <ul>
+          <li>Edición de fotografías + creación de A+ Content (placeholder)</li>
+          <li>Producción del primer lote (cobertura 60-90 días)</li>
+          <li>Subida de listings borrador a Amazon Seller Central</li>
+          <li>Generación FNSKU + impresión de etiquetas</li>
+        </ul>
+      </div>
+      <div class="timeline-week">
+        <div class="timeline-week-title">Semanas 3-4</div>
+        <ul>
+          <li>Embalaje según especificaciones FBA</li>
+          <li>Documentación de exportación (certificado origen Colombia TPA, BL)</li>
+          <li><b>Despacho del primer contenedor a centro Amazon</b></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-card jul">
+      <div class="timeline-month">★ Julio · Go live</div>
+      <div class="timeline-week">
+        <div class="timeline-week-title">Semanas 1-2 · Activación</div>
+        <ul>
+          <li>Recepción Amazon (1-3 semanas inbound check-in)</li>
+          <li><b>Listings activos</b> una vez confirmada recepción</li>
+          <li>Setup Sponsored Products inicial (presupuesto piloto $300/mes)</li>
+          <li>Vine Reviews para inyectar primeras reseñas ($200 × 2 SKUs = $400)</li>
+        </ul>
+      </div>
+      <div class="timeline-week">
+        <div class="timeline-week-title">Semanas 3-4 · Optimización</div>
+        <ul>
+          <li>Monitoreo diario de ventas, ranking, BSR (Best Seller Rank)</li>
+          <li>Optimización de PPC según conversión real</li>
+          <li>Primer informe semanal al comité</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 06 PROCEDIMIENTO ============ -->
+  <div class="section" id="procedimiento">
+    <div class="section-title">
+      <div class="num">06</div>
+      <h3>Procedimiento Amazon · paso a paso</h3>
+    </div>
+
+    <div class="alert alert-info">
+      <div class="icon">ⓘ</div>
+      <div class="body">
+        <div class="title">Aclaración importante (responde duda 7 + 8)</div>
+        <div class="desc">Amazon <b style="color:#fff">no funciona como las grandes superficies</b> (Éxito, Falabella). <b style="color:var(--gr)">No hay que "presentar la oferta" a nadie</b>. Uno mismo crea su tienda en sellercentral.amazon.com y sube los productos. <b style="color:var(--gr)">No cobra por codificar productos ni subir fotos ni instructivos</b> — todo está incluido en la comisión.</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><div><div class="card-title">Paso 1-3 · Setup de cuenta</div></div></div>
+        <div class="card-body">
+          <ul class="bullet-list">
+            <li><b>Paso 1:</b> sellercentral.amazon.com → Plan Profesional ($39.99/mes)</li>
+            <li><b>Paso 2:</b> Cargar documentación:
+              <ul style="margin-top:6px">
+                <li style="font-size:12px">Certificado existencia Cauchos Echeverri</li>
+                <li style="font-size:12px">Cédula de Don Oscar</li>
+                <li style="font-size:12px">Tarjeta de crédito internacional</li>
+                <li style="font-size:12px">Cuenta bancaria USD (Wise Business)</li>
+                <li style="font-size:12px">W-8BEN-E (formulario fiscal USA)</li>
+                <li style="font-size:12px">Comprobante de domicilio &lt; 180 días</li>
+              </ul>
+            </li>
+            <li><b>Paso 3:</b> Verificación Amazon (1-2 sem · pueden pedir videollamada)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><div><div class="card-title">Paso 4-6 · Listings y envío</div></div></div>
+        <div class="card-body">
+          <ul class="bullet-list">
+            <li><b>Paso 4:</b> Crear listings: título 200 chars, 5 bullets, descripción, 7 imágenes + 1 video, GTIN-13</li>
+            <li><b>Paso 5:</b> Send to Amazon (FBA): shipment plan + FNSKUs + embalaje</li>
+            <li><b>Paso 6:</b> Live & monitoreo: Buy Box, ranking, reviews</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">Requisitos de fotografía (responde duda 9)</div></div></div>
+      <div class="card-body" style="padding:0">
+        <table>
+          <thead><tr><th>Tipo</th><th>Requisito</th></tr></thead>
+          <tbody>
+            <tr><td><b style="color:#fff">Imagen principal</b></td><td>1.000×1.000 px mínimo · recomendado 2.000×2.000 (zoom)</td></tr>
+            <tr><td>Fondo principal</td><td>Blanco puro RGB 255,255,255 · estricto</td></tr>
+            <tr><td>Producto en frame</td><td>85% del frame</td></tr>
+            <tr><td>Restricciones imagen principal</td><td><span class="badge badge-red">Sin texto · sin logos · sin watermarks</span></td></tr>
+            <tr><td>Imágenes secundarias (6)</td><td>Lifestyle, infografía, comparativa, escala, contenido caja</td></tr>
+            <tr><td>Video (opcional)</td><td>Hasta 5 minutos · uso del producto</td></tr>
+            <tr><td>Formatos aceptados</td><td>JPEG, PNG, TIFF</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="alert alert-orange">
+      <div class="icon">⚠</div>
+      <div class="body">
+        <div class="title">Sobre Brand Registry y trademark (responde duda 11)</div>
+        <div class="desc">El trademark "Rubberfit" en USPTO toma <b style="color:#fff">9-12 meses</b>. Para julio NO lo vamos a tener listo, pero <b style="color:var(--gr)">los listings funcionan sin Brand Registry</b>. Limita features (sin A+ Content, sin Brand Analytics) pero permite vender. Cuando llegue el trademark (~Q1-Q2 2027), se activa Brand Registry y se desbloquean herramientas premium. <b style="color:#fff">Iniciar el trámite USPTO en mayo es prerrequisito.</b></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 07 ERP ============ -->
+  <div class="section" id="erp">
+    <div class="section-title">
+      <div class="num">07</div>
+      <h3>ERP · prerrequisito para Amazon</h3>
+    </div>
+
+    <div class="alert alert-warn">
+      <div class="icon">★</div>
+      <div class="body">
+        <div class="title">Don Oscar tiene razón: el ERP debe adelantarse</div>
+        <div class="desc"><em style="color:#fff;font-style:italic">"Tenemos que adelantar la implementación del ERP para que esto fluya mucho mejor"</em>. Sin ERP, el piloto Amazon tiene 3x más riesgo de stockout en FBA → ranking penalizado → listing muerto. <b style="color:#fff">El ERP es prerrequisito, no opcional.</b></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body" style="padding:0">
+        <table>
+          <thead><tr><th>Sin ERP</th><th>Con ERP</th></tr></thead>
+          <tbody>
+            <tr><td>Inventario actualizado manualmente</td><td><span class="badge badge-green">Sincronización automática Shopify ↔ FBA</span></td></tr>
+            <tr><td>Riesgo de oversell entre canales</td><td><span class="badge badge-green">Stock unificado</span></td></tr>
+            <tr><td>Sin alertas de reposición</td><td><span class="badge badge-green">Alertas anticipadas para no romper FBA</span></td></tr>
+            <tr><td>Reportes mensuales manuales</td><td><span class="badge badge-green">Reportes en tiempo real</span></td></tr>
+            <tr><td>Combo descuadre persiste</td><td><span class="badge badge-green">Lógica de bundles aplicada correctamente</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 08 RIESGOS ============ -->
+  <div class="section" id="riesgos">
+    <div class="section-title">
+      <div class="num">08</div>
+      <h3>Riesgos actualizados</h3>
+    </div>
+
+    <div class="card">
+      <div class="card-body" style="padding:0">
+        <table>
+          <thead><tr><th>Riesgo</th><th class="text-center">Probabilidad</th><th class="text-center">Impacto</th><th>Mitigación v2</th></tr></thead>
+          <tbody>
+            <tr><td><b style="color:#fff">Capacidad de planta insuficiente</b></td><td class="text-center"><span class="badge badge-red">Alta</span></td><td class="text-center"><span class="badge badge-red">Crítico</span></td><td>Cerrar Fase 2 antes de comprometerse</td></tr>
+            <tr><td><b style="color:#fff">Stockout en FBA</b></td><td class="text-center"><span class="badge badge-yellow">Media</span></td><td class="text-center"><span class="badge badge-red">Crítico</span></td><td>Inventario inicial 90 días + ERP funcionando</td></tr>
+            <tr><td>Trademark USPTO demora</td><td class="text-center"><span class="badge badge-red">Alta</span></td><td class="text-center"><span class="badge badge-yellow">Medio</span></td><td>Subir listings sin Brand Registry inicialmente</td></tr>
+            <tr><td>Flete real &gt; $2.00/unidad</td><td class="text-center"><span class="badge badge-yellow">Media</span></td><td class="text-center"><span class="badge badge-yellow">Medio</span></td><td>Cotizar 3 forwarders, elegir el más estable</td></tr>
+            <tr><td>Empaque no cumple FBA</td><td class="text-center"><span class="badge badge-yellow">Media</span></td><td class="text-center"><span class="badge badge-yellow">Medio</span></td><td>Auditoría empaque semana 2 mayo</td></tr>
+            <tr><td>Reseñas chinas falsas</td><td class="text-center"><span class="badge badge-yellow">Media</span></td><td class="text-center"><span class="badge badge-yellow">Medio</span></td><td>Brand Registry cuando llegue + Vine reviews</td></tr>
+            <tr><td><b style="color:#fff">Materia prima caucho</b></td><td class="text-center"><span class="badge badge-red">Alta</span></td><td class="text-center"><span class="badge badge-red">Crítico</span></td><td>Diversificar proveedor en paralelo</td></tr>
+            <tr><td>COGS real &gt; $10/unidad</td><td class="text-center"><span class="badge badge-yellow">Media</span></td><td class="text-center"><span class="badge badge-orange">Alto</span></td><td>Cerrar Fase 2 + ajustar pricing si necesario</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 09 APROBACIONES ============ -->
+  <div class="section" id="aprobaciones">
+    <div class="section-title">
+      <div class="num">09</div>
+      <h3>Decisiones que necesitamos del comité</h3>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Para arrancar mayo necesitamos 5 aprobaciones</div>
+          <div class="card-sub">Sin estas decisiones, el cronograma se atrasa</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <ul class="bullet-list">
+          <li><b>Aprobación del presupuesto inicial</b> — $80K-$100K USD (~$320M-$400M COP)</li>
+          <li><b>Asignación de responsable de Amazon</b> dentro del equipo (¿Yoany?)</li>
+          <li><b>Aprobación del cronograma</b> (Opción B: preparación mayo · listings julio)</li>
+          <li><b>Aprobación de pricing inicial</b> ($29.99 Black / $39.99 Training)</li>
+          <li><b>Decisión sobre abogado de marcas</b> (¿corresponsal Cauchos Echeverri ya tiene uno?)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert alert-success">
+      <div class="icon">→</div>
+      <div class="body">
+        <div class="title">Próximo paso recomendado</div>
+        <div class="desc">Reunión de aprobación con el comité ejecutivo entre el <b style="color:#fff">9 y 11 de mayo</b> para validar la v2 y arrancar las tareas de la semana 1 (12-18 mayo) sin atrasos. <b style="color:#fff">Cada semana de retraso = 1 semana menos de ventas Amazon en el año.</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Rubberfit · Propuesta Amazon USA v2 · 8 de mayo de 2026 · Generado por Claude Code (alias Matías)<br>
+    Reemplaza a v1 (28-abril) · Conservada para trazabilidad · Documento confidencial
+  </div>
+
+</div>
+
+</body>
+</html>
