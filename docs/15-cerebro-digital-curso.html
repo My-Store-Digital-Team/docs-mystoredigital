@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tu Cerebro Digital — Guía rápida del curso (Obsidian + IA en 7 días)</title>
+  <meta name="description" content="Quick-start del sistema PARA + Wiki LLM. Descarga la plantilla, configura Obsidian en 15 min y empieza a usar tu segundo cerebro con IA.">
+  <meta name="category" content="FORMACIÓN">
+  <meta name="date" content="2026-05-26">
+  <link rel="icon" href="../assets/isotipo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="nav-brand" href="../index.html">
+        <img class="iso" src="../assets/isotipo.svg" alt="My Store Digital">
+        <span class="wordmark">My Store <span class="o">Digital</span> · docs</span>
+      </a>
+      <div class="nav-meta"><a href="https://github.com/My-Store-Digital-Team/docs-mystoredigital" target="_blank" rel="noopener">github</a></div>
+    </div>
+  </nav>
+
+  <header class="doc-hero">
+    <div class="doc-hero-inner">
+      <a class="back" href="../index.html">← Volver al índice</a>
+      <div class="badge">Formación</div>
+      <h1>Tu Cerebro Digital: de cero a sistema en 1 semana</h1>
+      <p class="lede">Quick-start del curso lead magnet. Sistema PARA + Wiki con IA construido sobre Obsidian. Plantilla descargable de GitHub, 7 lecciones cortas, ~85 minutos en total.</p>
+      <div class="meta">
+        <span><strong>Fecha</strong> · 2026-05-26</span>
+        <span><strong>Sistema</strong> · Obsidian + Templater + Claude/Cursor</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="doc-body"><article>
+
+    <h2>Qué es esto</h2>
+
+    <p>Una guía web de referencia para los inscritos al curso <strong>"Tu Cerebro Digital"</strong> publicado en Skool. Sirve para dos cosas: si oíste hablar del curso y quieres entender en 5 minutos qué es, lee esta página completa. Si ya estás inscrito y necesitas un comando, un link o un troubleshooting rápido, esta es tu referencia siempre a la mano.</p>
+
+    <p>El curso entrega una plantilla de Obsidian publicada en GitHub bajo licencia MIT — la misma que usamos internamente para organizar empresas, proyectos, lecturas, daily notes y agentes de IA. La descargas, la usas, la modificas, la compartes.</p>
+
+    <div class="callout ok">
+      <strong>Repositorio público.</strong> <a href="https://github.com/mystoredigital/obsidian-vault-template" target="_blank" rel="noopener">github.com/mystoredigital/obsidian-vault-template</a> — 76 carpetas, 10 plantillas Templater, sistema Wiki LLM listo para IA.
+    </div>
+
+    <h2>Qué vas a construir</h2>
+
+    <p>El vault tiene dos áreas separadas con propósitos distintos:</p>
+
+    <h3>1. <code>MI CEREBRO DIGITAL/</code> — Sistema PARA</h3>
+
+    <p>Inspirado en PARA de Tiago Forte pero adaptado. Carpetas numeradas (el número da orden, el emoji da identidad visual):</p>
+
+    <table>
+      <thead>
+        <tr><th>Carpeta</th><th>Para qué</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>000</code> Visión</td><td>Visión, objetivos, north star</td></tr>
+        <tr><td><code>001</code> Captura</td><td>Inbox crudo, formato <code>YYYY-MM-DD - título.md</code></td></tr>
+        <tr><td><code>050</code> Prompts</td><td>Prompts reusables para IA</td></tr>
+        <tr><td><code>099</code> Claude Code</td><td>Skills, configs, notas técnicas</td></tr>
+        <tr><td><code>100</code> Proyectos</td><td>Con deadline y fecha de cierre</td></tr>
+        <tr><td><code>150</code> Activos</td><td>Permanentes (Finance, Hogar, Vehículos)</td></tr>
+        <tr><td><code>200</code> Memoria Digital</td><td>Conocimiento de referencia</td></tr>
+        <tr><td><code>222</code> Agent Memory</td><td>Memoria estructurada de un agente IA</td></tr>
+        <tr><td><code>300</code> Modelos Mentales</td><td>Frameworks y principios</td></tr>
+        <tr><td><code>400</code> Contactos</td><td>Personas por categoría</td></tr>
+        <tr><td><code>900</code> Diario</td><td>Daily notes y journaling</td></tr>
+        <tr><td><code>901</code> Plantillas</td><td>10 plantillas Templater listas</td></tr>
+      </tbody>
+    </table>
+
+    <h3>2. <code>Wiki/</code> — Wiki LLM separada</h3>
+
+    <p>Sistema de conocimiento sintetizado por un LLM (Claude, Cursor, ChatGPT). Tres capas:</p>
+
+    <ul>
+      <li><strong><code>raw/</code></strong> — fuentes inmutables (PDFs, transcripciones, recortes). Solo lectura.</li>
+      <li><strong><code>wiki/</code></strong> — páginas generadas por el LLM en <code>sources/</code>, <code>entities/</code>, <code>concepts/</code>, <code>analyses/</code>.</li>
+      <li><strong><code>CLAUDE.md</code></strong> — instrucciones para el LLM con cuatro operaciones: <code>PROCESA</code>, <code>CONSULTA</code>, <code>LINT</code>, <code>EXPLORA</code>.</li>
+    </ul>
+
+    <div class="callout ok">
+      <strong>El diferencial.</strong> Antes de los LLMs, mantener una wiki personal era trabajo de doctorado. Ahora un LLM la construye por ti, citando siempre la fuente original en <code>raw/</code>. Tú quedas como editor, no escritor.
+    </div>
+
+    <h2>Paso a paso (7 lecciones, ~85 min)</h2>
+
+    <h3>01 · Bienvenida + descarga la plantilla — <em>5 min</em></h3>
+    <p>Clonas el repo y verificas la estructura. Sin código, sin configuración todavía.</p>
+    <p><strong>Acción:</strong></p>
+    <pre><code>git clone https://github.com/mystoredigital/obsidian-vault-template.git mi-cerebro-digital</code></pre>
+
+    <h3>02 · Filosofía PARA — <em>12 min</em></h3>
+    <p>Entiendes por qué organizar por <strong>accionabilidad</strong> (no por tema) es lo que hace que el sistema sobreviva a las 2 semanas. La pregunta mágica: <em>"¿Tengo que hacer algo específico con esto, en una fecha concreta?"</em></p>
+    <p><strong>Acción:</strong> identifica en tu vida ahora mismo 1 proyecto con deadline, 1 activo permanente y 1 pieza de conocimiento que quieres consultar después.</p>
+
+    <h3>03 · Instala Obsidian y configura tu vault — <em>15 min</em></h3>
+    <p>Descarga Obsidian, abre el vault, instala los 4 plugins esenciales y configura Templater + Daily notes apuntando a las rutas correctas.</p>
+    <p><strong>Plugins esenciales:</strong> Templater, Dataview, Obsidian Full Calendar, Advanced Tables.</p>
+    <p><strong>Hotkeys clave:</strong> <code>Cmd+T</code> (insertar plantilla), <code>Cmd+Shift+D</code> (daily note de hoy).</p>
+
+    <h3>04 · El flujo diario — <em>12 min</em></h3>
+    <p>El ciclo de vida de una nota: <strong>captura → procesa → usa → archiva</strong>. La regla maestra: cuando dudes, captura en <code>001 - Captura</code> y procesa después. Una hora a la semana procesando inbox = sistema vivo.</p>
+    <p><strong>Acción:</strong> captura 3 cosas durante el día. Mañana, decide a qué carpeta va cada una.</p>
+
+    <h3>05 · Las 10 plantillas — <em>15 min</em></h3>
+    <p>Conoces cuándo usar cada plantilla. Templater aplica la correcta automáticamente según la carpeta donde crees la nota.</p>
+    <p><strong>Acción:</strong> crea tu primer proyecto real desde plantilla <code>PROYECTO</code> en <code>100 - Proyectos</code>.</p>
+
+    <h3>06 · Wiki LLM con IA — <em>18 min</em></h3>
+    <p>La lección estrella. Aprendes la arquitectura de tres capas, las cuatro operaciones (<code>PROCESA</code>, <code>CONSULTA</code>, <code>LINT</code>, <code>EXPLORA</code>) y procesas tu primera fuente real.</p>
+    <p><strong>Acción:</strong> copia un artículo o transcripción a <code>Wiki/raw/</code>, dale al LLM la orden <code>PROCESA Wiki/raw/&lt;archivo&gt; según Wiki/CLAUDE.md</code> y revisa las páginas generadas en <code>Wiki/wiki/</code>.</p>
+
+    <h3>07 · Próximo paso: comunidad — <em>8 min</em></h3>
+    <p>Cierras el curso con tu setup funcionando. Conoces los siguientes pasos: casos avanzados, workshops mensuales, integraciones, agentes IA encima del vault.</p>
+    <p><strong>Acción:</strong> postea tu setup final en la comunidad de Skool.</p>
+
+    <h2>Las 10 plantillas incluidas</h2>
+
+    <table>
+      <thead>
+        <tr><th>Plantilla</th><th>Usa cuando…</th><th>Carpeta destino</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>plantilla CAPTURA</code></td><td>Pegas algo crudo</td><td><code>001 - Captura</code></td></tr>
+        <tr><td><code>plantilla PROYECTO</code></td><td>Inicias algo con deadline</td><td><code>100 - Proyectos</code></td></tr>
+        <tr><td><code>plantilla PROYECTO - completa</code></td><td>Proyecto grande con stakeholders y presupuesto</td><td><code>100 - Proyectos</code></td></tr>
+        <tr><td><code>plantilla ACTIVO</code></td><td>Defines un área permanente con KPIs</td><td><code>150 - Activos</code></td></tr>
+        <tr><td><code>plantilla LIBRO</code></td><td>Empiezas a leer un libro</td><td><code>Libros/</code></td></tr>
+        <tr><td><code>plantilla_DIARIO</code></td><td>Reflexión semanal con Rueda de la Vida</td><td><code>900 - Diario</code></td></tr>
+        <tr><td><code>plantilla_DIARIO_intersticial</code></td><td>Daily de uso normal con tareas y agenda</td><td><code>900 - Diario</code></td></tr>
+        <tr><td><code>plantilla BÁSICA</code></td><td>Ninguna otra encaja</td><td>Cualquiera</td></tr>
+        <tr><td><code>PLANTILLA - Enviame un proyecto</code></td><td>Cliente te pasa info de proyecto</td><td><code>100 - Proyectos/Propuestas</code></td></tr>
+        <tr><td><code>RUTAS PLANTILLAS</code></td><td>Índice (no es plantilla en sí)</td><td><code>901</code></td></tr>
+      </tbody>
+    </table>
+
+    <h2>Comandos útiles (copy-paste)</h2>
+
+    <h3>Clonar la plantilla</h3>
+    <pre><code>git clone https://github.com/mystoredigital/obsidian-vault-template.git mi-cerebro-digital
+cd mi-cerebro-digital
+find . -name ".gitkeep" -delete   # opcional: limpia los placeholders</code></pre>
+
+    <h3>Configuración de Templater (Settings → Templater)</h3>
+    <ul>
+      <li><strong>Template folder location:</strong> <code>MI CEREBRO DIGITAL/901 - 🧱 PLANTILLAS</code></li>
+      <li><strong>Trigger Templater on new file creation:</strong> ON</li>
+      <li><strong>Enable Folder Templates:</strong> ON</li>
+    </ul>
+
+    <p>Folder Templates a configurar:</p>
+    <pre><code>001 - 📥 CAPTURA      → plantilla CAPTURA
+100 - ✅ PROYECTOS    → plantilla PROYECTO
+150 - 🏆 ACTIVOS      → plantilla ACTIVO
+Libros                → plantilla LIBRO
+900 - 📆 DIARIO        → plantilla_DIARIO_intersticial</code></pre>
+
+    <h3>Configuración de Daily Notes (Settings → Daily notes)</h3>
+    <ul>
+      <li><strong>New file location:</strong> <code>MI CEREBRO DIGITAL/900 - 📆 DIARIO</code></li>
+      <li><strong>Template file location:</strong> <code>MI CEREBRO DIGITAL/901 - 🧱 PLANTILLAS/plantilla_DIARIO_intersticial.md</code></li>
+      <li><strong>Date format:</strong> <code>YYYY-MM-DD</code></li>
+    </ul>
+
+    <h3>Procesar una fuente con LLM en la Wiki</h3>
+    <p>Una vez tienes una fuente cruda en <code>Wiki/raw/&lt;tema&gt;.md</code>, abre tu LLM (Claude Code, Cursor, ChatGPT con archivos) sobre la carpeta del vault y dale:</p>
+    <pre><code>PROCESA Wiki/raw/habit-stacking.md según las instrucciones de Wiki/CLAUDE.md</code></pre>
+
+    <p>El LLM genera:</p>
+    <ul>
+      <li><code>Wiki/wiki/sources/habit-stacking.md</code> — resumen estructurado de la fuente</li>
+      <li><code>Wiki/wiki/entities/&lt;autor&gt;.md</code> — página de la persona/organización</li>
+      <li><code>Wiki/wiki/concepts/habit-stacking.md</code> — concepto desarrollado</li>
+      <li>Wiki-links automáticos entre todas las páginas</li>
+    </ul>
+
+    <p>Para consultar después:</p>
+    <pre><code>CONSULTA Wiki/wiki/ — ¿quién es el autor del concepto de habit stacking?</code></pre>
+
+    <h2>FAQ rápido</h2>
+
+    <h3>¿Por qué no Notion?</h3>
+    <p>Notion es excelente para wikis colaborativos. Pero su data vive en sus servidores, no es portable, y los LLMs trabajan mejor con markdown plano. Este sistema es <strong>local-first</strong>: tu vault es tuyo, en tu disco, en archivos de texto que cualquier herramienta lee.</p>
+
+    <h3>¿Funciona en Windows?</h3>
+    <p>Sí. Obsidian es multiplataforma. La única diferencia es <code>Ctrl</code> en vez de <code>Cmd</code> para hotkeys, y la terminal es Git Bash o PowerShell.</p>
+
+    <h3>¿Necesito saber código para usar la Wiki LLM?</h3>
+    <p>No. Solo necesitas un LLM con acceso a archivos. Claude Code es lo más cómodo, pero Cursor o ChatGPT con archivos también funcionan. Los comandos definidos en <code>Wiki/CLAUDE.md</code> los das en español o inglés natural.</p>
+
+    <h3>¿Cómo sé si algo es Proyecto o Activo?</h3>
+    <p>Pregunta: <em>"¿Puedo imaginar el momento exacto en que digo 'ya terminé'?"</em> Si sí → proyecto. Si no → activo. Ejemplos: "mudarme" es proyecto, "mi casa" es activo. "Lanzar el curso" es proyecto, "mi canal de YouTube" es activo.</p>
+
+    <h3>Las plantillas se ven con <code>&lt;% tp.file.title %&gt;</code> literal</h3>
+    <p>Estás usando el plugin nativo <em>Templates</em> en vez de <em>Templater</em>. Las variables <code>&lt;% %&gt;</code> solo las procesa Templater. Instala Templater desde Community plugins y configúralo apuntando a la carpeta de plantillas.</p>
+
+    <h3>Tengo 500 capturas viejas sin procesar</h3>
+    <p>No las proceses todas. El 80% no vale tu tiempo. Filtro recomendado: borra todo lo de más de 6 meses (si no lo procesaste, no lo vas a usar). De lo restante, aplica la regla de 30 segundos: si en medio minuto no decides dónde va, archívala o bórrala.</p>
+
+    <div class="callout warn">
+      <strong>Importante.</strong> El sistema no es el cerebro. Es el andamiaje. La fricción de capturar tiene que ser cero; la decisión de organizar viene después, en un ritual semanal de una hora. Si pasas más de 30 segundos pensando dónde va una nota nueva, el sistema ya falló.
+    </div>
+
+    <h2>Recursos</h2>
+
+    <ul>
+      <li><strong>Repositorio plantilla:</strong> <a href="https://github.com/mystoredigital/obsidian-vault-template" target="_blank" rel="noopener">github.com/mystoredigital/obsidian-vault-template</a></li>
+      <li><strong>WORKFLOW.md</strong> — flujo diario detallado: <a href="https://github.com/mystoredigital/obsidian-vault-template/blob/main/WORKFLOW.md" target="_blank" rel="noopener">ver en GitHub</a></li>
+      <li><strong>TEMPLATES.md</strong> — guía de las 10 plantillas: <a href="https://github.com/mystoredigital/obsidian-vault-template/blob/main/TEMPLATES.md" target="_blank" rel="noopener">ver en GitHub</a></li>
+      <li><strong>SETUP.md</strong> — instalación completa: <a href="https://github.com/mystoredigital/obsidian-vault-template/blob/main/SETUP.md" target="_blank" rel="noopener">ver en GitHub</a></li>
+      <li><strong>Obsidian:</strong> <a href="https://obsidian.md" target="_blank" rel="noopener">obsidian.md</a></li>
+      <li><strong>Templater:</strong> <a href="https://silentvoid13.github.io/Templater/" target="_blank" rel="noopener">silentvoid13.github.io/Templater</a></li>
+      <li><strong>Claude Code:</strong> <a href="https://claude.com/claude-code" target="_blank" rel="noopener">claude.com/claude-code</a></li>
+    </ul>
+
+    <h2>Únete a la comunidad</h2>
+
+    <p>El curso completo (7 lecciones en video + posts complementarios + soporte) vive en Skool. Es gratis. Sin upsell, sin email marketing oculto, sin tier premium.</p>
+
+    <p>Allí encuentras: workshops mensuales en vivo, plantillas extra (reuniones, sprints personales, retros), casos avanzados de automatización (captura móvil, integraciones Todoist/Calendar, agentes IA), y soporte real cuando te trabes.</p>
+
+    <div class="callout ok">
+      <strong>Comunidad Yoany Andres.</strong> <a href="https://www.skool.com/yoany-andres-community-4677" target="_blank" rel="noopener">skool.com/yoany-andres-community-4677</a> — entra, ve el curso completo, postea tu setup.
+    </div>
+
+  </article></main>
+
+  <footer class="site"><div class="inner">
+    <img src="../assets/logo.svg" alt="My Store Digital">
+    <div class="meta"><a href="../index.html">índice</a> · <a href="https://github.com/My-Store-Digital-Team/docs-mystoredigital">github</a></div>
+  </div></footer>
+</body>
+</html>
