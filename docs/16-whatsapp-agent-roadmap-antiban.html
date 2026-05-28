@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WhatsApp Agent — Roadmap de mejoras anti-ban</title>
+  <meta name="description" content="Análisis técnico del estado actual del agente y plan priorizado de mejoras para una versión robusta orientada a clientes enterprise/agencia.">
+  <meta name="category" content="CAPACIDADES">
+  <meta name="date" content="2026-05-27">
+  <link rel="icon" href="../assets/isotipo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="nav-brand" href="../index.html">
+        <img class="iso" src="../assets/isotipo.svg" alt="My Store Digital">
+        <span class="wordmark">My Store <span class="o">Digital</span> · docs</span>
+      </a>
+      <div class="nav-meta"><a href="https://github.com/My-Store-Digital-Team/docs-mystoredigital" target="_blank" rel="noopener">github</a></div>
+    </div>
+  </nav>
+
+  <header class="doc-hero">
+    <div class="doc-hero-inner">
+      <a class="back" href="../index.html">← Volver al índice</a>
+      <div class="badge">Capacidades</div>
+      <h1>WhatsApp Agent — Roadmap de mejoras anti-ban</h1>
+      <p class="lede">Análisis técnico del estado actual de las protecciones anti-bloqueo del agente y plan priorizado de mejoras para una versión robusta orientada a clientes enterprise o agencia que necesiten capacidades avanzadas (proxies por país, warm-up, dashboard de salud).</p>
+      <div class="meta">
+        <span><strong>Fecha</strong> · 2026-05-27</span>
+        <span><strong>Sistema</strong> · WhatsApp Agent · Baileys · Node 20 · OpenRouter</span>
+        <span><strong>Audiencia</strong> · Interna · Equipo técnico</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="doc-body"><article>
+
+  <div class="summary-card">
+    <div class="summary-label">Resumen</div>
+    <p><strong>Qué hay hoy:</strong> el agente ya implementa 6 mecanismos anti-ban (rate limit per-chat + global, jitter humano 3-12s con presence "escribiendo", quiet hours 23-07, greylist contactos nuevos, reconexión exponencial, IA generativa que evita patrones). Cobre los vectores de riesgo del caso inbound.</p>
+    <p><strong>Qué falta para una versión robusta:</strong> proxy opt-in (HTTP/SOCKS), warm-up gradual de números nuevos, detección y alerta de bloqueo, dashboard de salud del número, rotación outbound multi-número, spintax para snippets manuales.</p>
+    <p><strong>Decisión vigente:</strong> no implementar red propia de proxies residenciales — costo prohibitivo ($5-20/GB) y baja ROI para el caso inbound-driven. Habilitar proxy como configuración opcional por número cuando un cliente lo requiera.</p>
+  </div>
+
+  <h2 id="contexto">Contexto</h2>
+
+  <p>Este documento responde a una pregunta recurrente que aparece cuando comparamos el agente con productos de mass-marketing tipo <em>gogohl</em>, que presumen "Red Global de Proxies 195+ países", "Modo Goteo Inteligente", "Retrasos Aleatorios" y "Soporte Spintax" como diferenciadores anti-ban.</p>
+
+  <p>La conclusión corta: <strong>varios de esos features ya los tenemos, otros no aplican a nuestro modelo, y unos pocos sí valen la pena implementar</strong>. Este doc detalla el porqué de cada uno y deja registro de qué construir cuando un cliente lo pague.</p>
+
+  <h2 id="capacidades-actuales">Capacidades anti-ban implementadas</h2>
+
+  <p>Auditoría real del código (<code>src/whatsapp.js</code>) confirmó las siguientes protecciones activas:</p>
+
+  <table>
+    <thead>
+      <tr><th>Mecanismo</th><th>Implementación</th><th>Configuración por env</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Rate limit per-chat</strong></td>
+        <td>Cooldown mínimo entre mensajes al mismo contacto. Bloquea respuestas rapid-fire.</td>
+        <td><code>PER_CHAT_COOLDOWN_MS</code></td>
+      </tr>
+      <tr>
+        <td><strong>Rate limit global</strong></td>
+        <td>Ventana móvil de 60s con cap configurable de mensajes salientes del agente.</td>
+        <td><code>GLOBAL_MAX_PER_MIN</code> (default 20)</td>
+      </tr>
+      <tr>
+        <td><strong>Jitter humano</strong></td>
+        <td>Delay aleatorio antes de enviar (no fijo, distribución real con <code>Math.random()</code>).</td>
+        <td><code>HUMAN_DELAY_MIN_MS</code> · <code>HUMAN_DELAY_MAX_MS</code> (default 3-12s)</td>
+      </tr>
+      <tr>
+        <td><strong>Composing presence</strong></td>
+        <td>Antes de enviar el agente emite <code>sendPresenceUpdate('composing')</code> — el contacto ve "escribiendo…" durante el delay. Visualmente indistinguible de un humano tipeando.</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>Quiet hours</strong></td>
+        <td>Bloquea respuestas automáticas en franja nocturna (default 23:00–07:00 GYE). Las respuestas humanas manuales sí pasan.</td>
+        <td><code>QUIET_HOURS_START</code> · <code>QUIET_HOURS_END</code> · <code>TIMEZONE</code></td>
+      </tr>
+      <tr>
+        <td><strong>Greylist contactos nuevos</strong></td>
+        <td>El primer mensaje de un contacto desconocido siempre va a modo humano — la IA no responde para evitar auto-responder a spam que detonaría reportes.</td>
+        <td><code>NEW_CONTACT_REQUIRES_HUMAN=true</code></td>
+      </tr>
+      <tr>
+        <td><strong>Reconexión exponencial</strong></td>
+        <td>Si el socket Baileys cae, reintentos con backoff 3s → 6s → 12s … cap 60s. Evita martilleo que detonaría detección como bot.</td>
+        <td>Hard-coded (3s base, 60s max)</td>
+      </tr>
+      <tr>
+        <td><strong>IA generativa contextual</strong></td>
+        <td>Cada respuesta es única según el historial del contacto. No hay patrones de texto repetidos a múltiples contactos (a diferencia de plantillas masivas).</td>
+        <td><code>OPENROUTER_API_KEY</code> + system prompt editable</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 id="comparativa">Comparativa vs competencia (gogohl-like)</h2>
+
+  <table>
+    <thead>
+      <tr><th>Feature publicitada</th><th>Equivalente nuestro</th><th>Gap real</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Modo Goteo Inteligente (Ritmo IA)</td>
+        <td>Jitter 3-12s + composing presence</td>
+        <td><span class="status done">Cubierto</span></td>
+      </tr>
+      <tr>
+        <td>Retrasos Aleatorios (Aleatorio)</td>
+        <td>Distribución uniforme con <code>jitter(min, max)</code></td>
+        <td><span class="status done">Cubierto</span></td>
+      </tr>
+      <tr>
+        <td>Rate limiting</td>
+        <td>Per-chat + global window</td>
+        <td><span class="status done">Cubierto</span></td>
+      </tr>
+      <tr>
+        <td>Spintax (variaciones de mensaje)</td>
+        <td>IA generativa = variedad natural por contexto</td>
+        <td><span class="status neutral">Cubierto para IA; falta para snippets manuales</span></td>
+      </tr>
+      <tr>
+        <td>Red Global de Proxies (195+ países, IPs residenciales)</td>
+        <td>—</td>
+        <td><span class="status risk">Gap real</span> (relevante solo para outbound masivo)</td>
+      </tr>
+      <tr>
+        <td>Warm-up de números nuevos</td>
+        <td>—</td>
+        <td><span class="status risk">Gap real</span> (alto valor para todos los casos)</td>
+      </tr>
+      <tr>
+        <td>Multi-número rotativo en outbound</td>
+        <td>Routing inbound por último número que habló</td>
+        <td><span class="status pending">Parcial</span> (falta round-robin para nuevos)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 id="modelo-riesgo">Modelo de riesgo: inbound vs outbound</h2>
+
+  <p>La pregunta clave al diseñar features anti-ban: <strong>¿qué actividad detona el ban?</strong> La respuesta cambia según el caso de uso, y el agente está construido para uno específico.</p>
+
+  <div class="callout info">
+    <strong>El agente es inbound-driven.</strong> El cliente escribe primero, la IA o el operador responde. Los volúmenes son moderados (cap 20 msg/min). No iniciamos conversaciones masivas con contactos fríos.
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>Vector de ban</th><th>Probabilidad inbound</th><th>Mitigación actual</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Volumen masivo en burst</td><td>Baja</td><td>Rate limit global 20/min</td></tr>
+      <tr><td>Latencia robot (respuesta &lt;200ms)</td><td>Alta sin mitigación</td><td>Jitter 3-12s + composing</td></tr>
+      <tr><td>Mensajes idénticos a muchos contactos</td><td>Nula con IA</td><td>IA generativa contextual</td></tr>
+      <tr><td>Auto-responder a spam</td><td>Media</td><td>Greylist + quiet hours</td></tr>
+      <tr><td>Iniciar conversaciones con contactos fríos</td><td>Nula (no es inbound)</td><td>N/A — no aplica al caso</td></tr>
+      <tr><td>IP del VPS en blocklist de WhatsApp</td><td>Muy baja</td><td>Sin mitigación; agregar proxy opt-in cubre</td></tr>
+    </tbody>
+  </table>
+
+  <p>Por contraste, en un producto de <strong>mass-marketing outbound</strong> (campañas a N contactos con plantilla), los vectores cambian: la IP empieza a importar mucho más (por eso la competencia presume 195+ países), la huella por número se vuelve crítica (de ahí el warm-up y la rotación), y el spintax se vuelve necesario para esquivar detección de plantillas repetidas.</p>
+
+  <h2 id="roadmap">Roadmap priorizado</h2>
+
+  <p>Tres tiers basados en valor real para nuestro caso de uso vs costo de implementación.</p>
+
+  <div class="phase pending">
+    <header>
+      <h3>Tier 1 — Alto valor / Bajo costo (implementar primero)</h3>
+      <span class="status pending">Próximos</span>
+    </header>
+
+    <ol class="steps">
+      <li><strong>Detección y alerta de bloqueo</strong> — si el socket cae con <code>code=401/403/loggedOut</code>, emitir evento <code>number.blocked</code> por webhook + alert visible en UI + posible notificación Telegram/email. Hoy solo se loguea a consola. Tiempo: ~45min.</li>
+      <li><strong>Proxy opt-in vía env var</strong> — soportar <code>WA_HTTP_PROXY</code> o <code>WA_SOCKS_PROXY</code> por número, inyectado en <code>socketConfig.agent</code> de Baileys. Habilitar solo cuando un cliente lo necesite (IP corporativa, país específico, IP residencial). Tiempo: ~30min + costo del proxy externo (Bright Data, Smartproxy, etc.) pagado por el cliente. Tiempo: ~30min.</li>
+      <li><strong>Dashboard de salud del número</strong> — render en el panel actual con: uptime hoy, reconexiones esta semana, % rate-limit hits, último error. Las métricas ya existen en <code>_limiter.snapshot()</code>; falta el render UI. Tiempo: ~1h.</li>
+      <li><strong>Warm-up gradual de números nuevos</strong> — primer día cap 5 msg/h, segundo 10, tercero 20, hasta llegar al cap normal. WhatsApp es más estricto con números recién vinculados (&lt;14 días). Tiempo: ~1h.</li>
+    </ol>
+  </div>
+
+  <div class="phase">
+    <header>
+      <h3>Tier 2 — Valor medio (cuando un cliente lo pida)</h3>
+      <span class="status neutral">Bajo demanda</span>
+    </header>
+
+    <ol class="steps">
+      <li><strong>Spintax para snippets manuales</strong> — sintaxis <code>Hola {Juan|amigo|estimado}</code> que randomiza al enviar. Solo para snippets/macros que el operador envía manual a múltiples contactos. NO para IA (ya es variada). Tiempo: ~1h.</li>
+      <li><strong>Rotación de número para outbound</strong> — si el tenant tiene N números, round-robin para contactos nuevos. Para contactos existentes ya hacemos routing por último número que habló. Tiempo: ~2h.</li>
+      <li><strong>Auto-pausa por fallos en cascada</strong> — 3 fallos consecutivos en 5min → desactivar IA del tenant + notificar. Protege contra ban en cascada. Tiempo: ~45min.</li>
+      <li><strong>Proxy automático por país del contacto</strong> — extender el proxy opt-in para que enrute por país detectado del prefijo telefónico (+57 Colombia → proxy CO). Solo si un cliente lo paga y justifica. Tiempo: ~3h + integración con proveedor de proxies.</li>
+    </ol>
+  </div>
+
+  <div class="phase">
+    <header>
+      <h3>Tier 3 — No recomendado replicar</h3>
+      <span class="status risk">Descartado</span>
+    </header>
+
+    <ul>
+      <li><strong>Red propia de proxies residenciales 195+ países.</strong> Costo $5-20/GB de tráfico residencial. No agrega valor para inbound (el cliente está contactándonos a él, la IP del VPS no importa). Si un cliente lo necesita, mejor consumir Bright Data / Smartproxy / Oxylabs bajo demanda y pasarle el costo en la factura.</li>
+      <li><strong>Spintax obligatorio en IA.</strong> La IA ya genera variedad natural por contexto. Forzar spintax solo agrega ruido y reduce calidad de la respuesta.</li>
+      <li><strong>Sistema propio de IP rotation por mensaje.</strong> Sobre-engineering. WhatsApp identifica el dispositivo por las llaves Signal del par auth, no solo por IP. Rotar IP por mensaje no ayuda y puede confundir a Baileys (re-handshake constante).</li>
+    </ul>
+  </div>
+
+  <h2 id="decisiones">Bitácora de decisiones</h2>
+
+  <div class="decisions">
+    <div class="decision">
+      <span class="ts">2026-05-27</span>
+      <span class="what">Mantener arquitectura inbound-driven sin proxy por default</span>
+      <span class="why">El caso de uso actual (responder a clientes que escriben) no se beneficia de proxies — la IP del VPS no es el vector de ban relevante. Agregar proxies por default sube complejidad y costo sin ROI claro.</span>
+    </div>
+    <div class="decision">
+      <span class="ts">2026-05-27</span>
+      <span class="what">Habilitar proxy como configuración opt-in por número</span>
+      <span class="why">Para clientes con políticas de IP corporativa, requerimiento de IP local de un país, o que sufrieron ban del VPS, queremos poder activarlo sin re-arquitectar la app. Tier 1 del roadmap.</span>
+    </div>
+    <div class="decision">
+      <span class="ts">2026-05-27</span>
+      <span class="what">No invertir en red propia de proxies residenciales</span>
+      <span class="why">Costo $5-20/GB residencial, baja ROI para inbound, mercado ya servido por Bright Data / Smartproxy. Si surge demanda real, integramos como proveedor externo.</span>
+    </div>
+    <div class="decision">
+      <span class="ts">2026-05-27</span>
+      <span class="what">Priorizar alerta de bloqueo + dashboard de salud antes que proxy</span>
+      <span class="why">Hoy un número puede quedar desconectado y el operador se entera tarde. Visibilidad operativa &gt; features nuevos que aún no se necesitan. Tier 1 #1 y #3.</span>
+    </div>
+  </div>
+
+  <h2 id="anexos">Anexos técnicos</h2>
+
+  <details class="collapse">
+    <summary><span class="title">Anexo A — Snippet del RateLimiter actual</span></summary>
+    <div class="collapse-body">
+      <p>Ubicación: <code>src/whatsapp.js</code> · clase <code>RateLimiter</code></p>
+      <pre><code>class RateLimiter {
+  constructor() {
+    this._lastByJid = new Map();
+    this._window = [];
+  }
+  check(jid) {
+    const now = Date.now();
+    this._window = this._window.filter((t) => now - t &lt; 60_000);
+    const last = this._lastByJid.get(jid) || 0;
+    const sinceLast = now - last;
+    if (sinceLast &lt; PER_CHAT_COOLDOWN_MS) {
+      return { ok: false, reason: 'per-chat cooldown', retryAfterMs: PER_CHAT_COOLDOWN_MS - sinceLast };
+    }
+    if (this._window.length &gt;= GLOBAL_MAX_PER_MIN) {
+      const oldest = this._window[0];
+      return { ok: false, reason: 'global rate limit', retryAfterMs: Math.max(1000, 60_000 - (now - oldest)) };
+    }
+    return { ok: true };
+  }
+  record(jid) {
+    const now = Date.now();
+    this._lastByJid.set(jid, now);
+    this._window.push(now);
+  }
+}</code></pre>
+    </div>
+  </details>
+
+  <details class="collapse">
+    <summary><span class="title">Anexo B — Snippet del jitter humano + composing</span></summary>
+    <div class="collapse-body">
+      <p>Ubicación: <code>src/whatsapp.js</code> · método <code>handleMessage</code> (respuesta IA)</p>
+      <pre><code>await this.sock.sendPresenceUpdate('composing', jid);
+const reply = await generateReply({ systemPrompt, history });
+if (reply && reply.trim()) {
+  const target = jitter(HUMAN_DELAY_MIN_MS, HUMAN_DELAY_MAX_MS);
+  const elapsed = Date.now() - startedAt;
+  if (elapsed &lt; target) await sleep(target - elapsed);
+  this._limiter.record(effectiveJid);
+  const sent = await this.sock.sendMessage(jid, { text: reply });
+  // ...
+}
+await this.sock.sendPresenceUpdate('paused', jid);</code></pre>
+      <p>La clave del realismo: el delay <em>incluye</em> el tiempo de generación de IA. Si el modelo tarda 5s y el target del jitter cayó en 7s, esperamos 2s extra. Si tardó 13s y el target era 7s, enviamos inmediatamente. Comportamiento idéntico a un humano que "piensa antes de escribir".</p>
+    </div>
+  </details>
+
+  <details class="collapse">
+    <summary><span class="title">Anexo C — Esqueleto del proxy opt-in (Tier 1 #2)</span></summary>
+    <div class="collapse-body">
+      <p>Snippet propuesto para implementar cuando se priorice. NO está en producción aún.</p>
+      <pre><code>// En src/whatsapp.js — start()
+import { HttpsProxyAgent } from 'https-proxy-agent';
+import { SocksProxyAgent } from 'socks-proxy-agent';
+
+const proxyUrl = this.numberConfig?.proxy
+  || process.env[`WA_PROXY_${this.numberId.toUpperCase()}`]
+  || process.env.WA_PROXY_DEFAULT;
+
+const socketConfig = {
+  version, auth: state, logger,
+  printQRInTerminal: false,
+  browser: ['Mac OS', 'Chrome', '120.0.0'],
+};
+
+if (proxyUrl) {
+  const agent = proxyUrl.startsWith('socks')
+    ? new SocksProxyAgent(proxyUrl)
+    : new HttpsProxyAgent(proxyUrl);
+  socketConfig.agent = agent;
+  socketConfig.fetchAgent = agent;
+  console.log(`[wa:${this._tag}] usando proxy ${new URL(proxyUrl).host}`);
+}
+
+this.sock = makeWASocket(socketConfig);</code></pre>
+      <p>Dependencias: <code>https-proxy-agent</code> (ya transitiva via Baileys) y <code>socks-proxy-agent</code> (a agregar al <code>package.json</code> si se quiere SOCKS5).</p>
+    </div>
+  </details>
+
+  <details class="collapse">
+    <summary><span class="title">Anexo D — Variables de entorno relevantes</span></summary>
+    <div class="collapse-body">
+      <pre><code># Rate limiting
+PER_CHAT_COOLDOWN_MS=8000
+GLOBAL_MAX_PER_MIN=20
+
+# Jitter humano (delay aleatorio antes de enviar)
+HUMAN_DELAY_MIN_MS=3000
+HUMAN_DELAY_MAX_MS=12000
+
+# Quiet hours (no responde la IA en este rango)
+QUIET_HOURS_START=23
+QUIET_HOURS_END=7
+TIMEZONE=America/Guayaquil
+
+# Greylist contactos nuevos
+NEW_CONTACT_REQUIRES_HUMAN=true
+
+# (Roadmap) Proxy opt-in — todavía NO implementado
+# WA_PROXY_DEFAULT=http://user:pass@proxy.host:8080
+# WA_PROXY_&lt;NUMBER_ID&gt;=socks5://user:pass@proxy.host:1080</code></pre>
+    </div>
+  </details>
+
+  <h2 id="cierre">Cierre</h2>
+
+  <p>El agente cubre los vectores de ban relevantes para su caso de uso (inbound-driven, volúmenes moderados). El gap real frente a la competencia outbound-masivo es honesto: <strong>no tenemos proxies por país ni warm-up automático</strong>. Ninguno de los dos es crítico hoy; ambos son implementables en horas cuando un cliente lo pague.</p>
+
+  <p>El próximo paso natural cuando aparezca un cliente que requiera "versión robusta" es Tier 1 completo (alerta de bloqueo + proxy opt-in + dashboard de salud + warm-up) en ~3h de trabajo. Eso da paridad funcional con la competencia para el 95% de los casos reales, sin invertir en infraestructura que no se justifica.</p>
+
+  <div class="callout ok">
+    <strong>Posicionamiento defendible.</strong> Frente a un cliente que compara: nuestro agente es <em>contextualmente más inteligente</em> (IA generativa por conversación), <em>operativamente más seguro</em> (greylist + quiet hours + composing realista), y <em>configurable a profundidad</em> (proxy bajo demanda, rate limits por env, multi-tenant). No competimos en cantidad de IPs porque ese no es el problema que resuelve nuestro caso de uso.
+  </div>
+
+  </article></main>
+
+  <footer class="site"><div class="inner">
+    <img src="../assets/logo.svg" alt="My Store Digital">
+    <div class="meta"><a href="../index.html">índice</a> · <a href="https://github.com/My-Store-Digital-Team/docs-mystoredigital">github</a></div>
+  </div></footer>
+</body>
+</html>

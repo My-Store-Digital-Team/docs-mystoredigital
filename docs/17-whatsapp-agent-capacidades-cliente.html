@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WhatsApp Agent — Capacidades anti-bloqueo</title>
+  <meta name="description" content="Cómo se construye nuestro agente de WhatsApp para mantenerse estable y no bloquear los números: rate limiting, ritmo humano, ventanas de operación, IA generativa y proxy bajo demanda.">
+  <meta name="category" content="CAPACIDADES">
+  <meta name="date" content="2026-05-27">
+  <link rel="icon" href="../assets/isotipo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="nav-brand" href="../index.html">
+        <img class="iso" src="../assets/isotipo.svg" alt="My Store Digital">
+        <span class="wordmark">My Store <span class="o">Digital</span> · docs</span>
+      </a>
+      <div class="nav-meta"><a href="https://github.com/My-Store-Digital-Team/docs-mystoredigital" target="_blank" rel="noopener">github</a></div>
+    </div>
+  </nav>
+
+  <header class="doc-hero">
+    <div class="doc-hero-inner">
+      <a class="back" href="../index.html">← Volver al índice</a>
+      <div class="badge">Capacidades</div>
+      <h1>WhatsApp Agent — Capacidades anti-bloqueo</h1>
+      <p class="lede">Documento explicativo para clientes que preguntan cómo nuestro agente protege la estabilidad de sus números de WhatsApp frente al riesgo de bloqueo. Comparativa honesta frente a productos que presumen "Red Global de Proxies".</p>
+      <div class="meta">
+        <span><strong>Fecha</strong> · 2026-05-27</span>
+        <span><strong>Producto</strong> · WhatsApp Agent · My Store Digital</span>
+        <span><strong>Audiencia</strong> · Cliente / prospecto</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="doc-body"><article>
+
+  <div class="summary-card">
+    <div class="summary-label">Resumen</div>
+    <p><strong>¿Tiene proxies?</strong> No por default — y te explicamos por qué eso es bueno para tu caso. Tenemos algo más útil: mecanismos de comportamiento humano que cubren los vectores reales de bloqueo (no los publicitarios).</p>
+    <p><strong>Qué protege a tus números hoy:</strong> rate limiting por chat y global, ritmo humano con "escribiendo…" visible, ventanas de operación nocturna, greylist para contactos nuevos, reconexión inteligente, y IA generativa que evita patrones repetitivos.</p>
+    <p><strong>Si necesitás proxy:</strong> lo activamos por número bajo demanda (IP corporativa, país específico, IP residencial vía Bright Data/Smartproxy) — sin costo extra de plataforma; solo se factura el proveedor de proxy que elijas.</p>
+  </div>
+
+  <h2 id="contexto">La pregunta y el contexto</h2>
+
+  <p>Algunos productos en el mercado se posicionan diciendo "tenemos red global de proxies en 195+ países con IPs residenciales". Suena impresionante. La pregunta honesta es: <strong>¿eso te sirve a vos?</strong></p>
+
+  <p>Depende de qué hacés con WhatsApp. Esos productos están diseñados para <em>campañas outbound masivas</em> — enviar el mismo mensaje a miles de contactos fríos. En ese caso, sí, distribuir la huella entre muchas IPs ayuda. Pero ese no es el caso que la mayoría de empresas necesita resolver.</p>
+
+  <p>Nuestro agente está construido para algo distinto: <strong>responder conversaciones reales con clientes que te contactan</strong>, con IA o con humanos del equipo. Para ese caso, los vectores de bloqueo son otros, y nuestra arquitectura los cubre.</p>
+
+  <h2 id="como-construido">Cómo está construido el agente</h2>
+
+  <p>Pensamos cada mecanismo apuntando al origen real del bloqueo: WhatsApp detecta y banea <em>comportamiento no-humano</em>, no IPs. Una IP residencial enviando 100 mensajes idénticos en 30 segundos se banea igual de rápido que un VPS. Por eso atacamos el comportamiento.</p>
+
+  <h3>Mecanismos activos en cada número</h3>
+
+  <table>
+    <thead>
+      <tr><th>Protección</th><th>Qué hace</th><th>Beneficio</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Ritmo humano</strong></td>
+        <td>Entre 3 y 12 segundos de espera aleatoria antes de cada respuesta, mostrando "escribiendo…" al contacto durante ese tiempo.</td>
+        <td>El contacto ve exactamente el mismo patrón que vería de una persona tipeando. Indistinguible de un agente humano.</td>
+      </tr>
+      <tr>
+        <td><strong>Límite por chat</strong></td>
+        <td>Cooldown mínimo entre mensajes consecutivos al mismo contacto.</td>
+        <td>Evita respuestas en cadena rapid-fire que WhatsApp marca como bot.</td>
+      </tr>
+      <tr>
+        <td><strong>Límite global</strong></td>
+        <td>Ventana de 60 segundos con tope configurable (20 msg/min por default) de mensajes salientes del agente.</td>
+        <td>Imposible que el agente entre en un burst masivo aunque haya un pico súbito de conversaciones.</td>
+      </tr>
+      <tr>
+        <td><strong>Ventana de operación nocturna</strong></td>
+        <td>La IA no responde fuera del horario hábil que configurás (default 23:00–07:00). Las respuestas manuales del equipo sí pasan.</td>
+        <td>Reduce la "huella 24/7 robótica" — no hay nada que delate más a un bot que respuestas perfectamente puntuales a las 3am.</td>
+      </tr>
+      <tr>
+        <td><strong>Greylist contactos nuevos</strong></td>
+        <td>El primer mensaje de un contacto desconocido siempre va a un agente humano del equipo. La IA no responde.</td>
+        <td>Si alguien te escribe spam, no automatizamos respuesta — eso es lo que detona reportes que detonan bans.</td>
+      </tr>
+      <tr>
+        <td><strong>Reconexión inteligente</strong></td>
+        <td>Si la conexión cae, reintentamos con espera creciente (3s → 6s → 12s … máximo 60s) en lugar de martillar.</td>
+        <td>Comportamiento legítimo frente a inestabilidad de red. WhatsApp marca como sospechoso a clientes que reintentan agresivamente.</td>
+      </tr>
+      <tr>
+        <td><strong>IA generativa por contexto</strong></td>
+        <td>Cada respuesta se construye nueva en base al historial de la conversación. No usamos plantillas repetidas.</td>
+        <td>Imposible que dos contactos reciban el mismo texto — uno de los disparadores principales de detección anti-spam.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 id="vectores">Los vectores reales de bloqueo (y cómo los cubrimos)</h2>
+
+  <p>Auditoría honesta de qué activa un ban y dónde estamos en cada caso:</p>
+
+  <table>
+    <thead>
+      <tr><th>Qué detona el ban</th><th>Nuestra cobertura</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Volumen masivo en pocos segundos</td><td><span class="status done">Cubierto</span> · cap configurable, default 20/min</td></tr>
+      <tr><td>Respuestas instantáneas (&lt;1 segundo)</td><td><span class="status done">Cubierto</span> · ritmo humano 3-12s</td></tr>
+      <tr><td>Mismo texto a múltiples contactos</td><td><span class="status done">Cubierto</span> · IA genera respuesta única cada vez</td></tr>
+      <tr><td>Auto-responder a mensajes de spam</td><td><span class="status done">Cubierto</span> · greylist activa por default</td></tr>
+      <tr><td>Reconexión agresiva tras caída</td><td><span class="status done">Cubierto</span> · backoff exponencial</td></tr>
+      <tr><td>Iniciar conversaciones con contactos fríos</td><td><span class="status neutral">No aplica</span> · nuestro agente solo responde, no inicia campañas</td></tr>
+      <tr><td>IP del servidor en lista negra de WhatsApp</td><td><span class="status pending">Cubrible con proxy bajo demanda</span></td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="proxies">Sobre proxies — la respuesta honesta</h2>
+
+  <p>Los proxies sirven cuando el problema es la IP. Para una operación de respuesta inbound, la IP del servidor casi nunca es el problema — WhatsApp identifica el dispositivo por sus claves criptográficas únicas, no por dónde se conecta. Por eso no los activamos por default: agregarían complejidad y costo sin un beneficio claro para la mayoría de casos.</p>
+
+  <p>Dicho eso, hay escenarios reales donde sí tienen sentido y los podemos activar:</p>
+
+  <ul>
+    <li><strong>Política corporativa de IP fija.</strong> Algunas empresas exigen que todo tráfico saliente pase por una IP específica controlada por ellos. Lo soportamos.</li>
+    <li><strong>IP local de un país.</strong> Si tu operación es 100% en Colombia, Ecuador o México, una IP local de ese país puede mejorar marginalmente la estabilidad (no es crítico, pero algunos clientes lo prefieren).</li>
+    <li><strong>IP residencial.</strong> Si trabajás con un volumen alto y querés huella residencial (no datacenter), lo integramos con proveedores como Bright Data, Smartproxy u Oxylabs.</li>
+    <li><strong>Recuperación de un ban previo de IP.</strong> Si el VPS donde corre tu agente alguna vez quedó marcado, mover el tráfico por proxy lo "resetea" desde la perspectiva de WhatsApp.</li>
+  </ul>
+
+  <div class="callout info">
+    <strong>Cómo se factura.</strong> El proxy se configura sin costo adicional de la plataforma. Solo pagás directamente el proveedor de proxy que elijas (precios típicos: $5-15/mes para IP fija de datacenter, $5-20/GB para residencial). No tenemos vendor lock-in — usás el proveedor que prefieras.
+  </div>
+
+  <h2 id="comparativa">Comparativa con productos masivos</h2>
+
+  <p>Lado a lado con productos del estilo "Red Global de Proxies":</p>
+
+  <table>
+    <thead>
+      <tr><th>Característica</th><th>Productos mass-marketing</th><th>Nuestro agente</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Caso de uso primario</td>
+        <td>Campañas outbound a miles de contactos fríos</td>
+        <td>Responder conversaciones inbound con clientes reales</td>
+      </tr>
+      <tr>
+        <td>Variación de mensajes</td>
+        <td>Spintax (plantillas con variables aleatorias)</td>
+        <td>IA generativa contextual (cada respuesta es única)</td>
+      </tr>
+      <tr>
+        <td>Ritmo de envío</td>
+        <td>Goteo configurable + retrasos aleatorios</td>
+        <td>Ritmo humano + composing presence + jitter aleatorio</td>
+      </tr>
+      <tr>
+        <td>Proxies</td>
+        <td>Red propia 195+ países (incluida)</td>
+        <td>Opt-in por número, vía proveedor externo</td>
+      </tr>
+      <tr>
+        <td>Integración con CRM</td>
+        <td>Generalmente plataforma cerrada</td>
+        <td>GoHighLevel nativo + API REST + Webhooks</td>
+      </tr>
+      <tr>
+        <td>Equipo humano en el loop</td>
+        <td>No es el foco</td>
+        <td>Sí — bandeja en vivo, modo IA/humano por chat, audit log</td>
+      </tr>
+      <tr>
+        <td>Inteligencia conversacional</td>
+        <td>Reglas + plantillas</td>
+        <td>LLM con system prompt editable + historial completo del contacto</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Son productos distintos para problemas distintos. Si tu objetivo es enviar 5.000 mensajes promocionales a contactos fríos, hay productos mejor diseñados para eso (y nosotros honestamente te recomendaríamos uno). Si tu objetivo es atender bien a los clientes que ya te contactan o que están en tu CRM con flujos contextuales y un equipo humano cuando hace falta, nuestro agente está optimizado para eso.</p>
+
+  <h2 id="capacidades-demanda">Capacidades disponibles bajo demanda</h2>
+
+  <p>Hay funcionalidades adicionales que tenemos planificadas y que activamos cuando un cliente lo necesita. No están en el producto por default para no sumar complejidad innecesaria, pero existe el camino:</p>
+
+  <ol class="steps">
+    <li><strong>Proxy HTTP/SOCKS opt-in por número</strong> — configurable por número, con proveedor externo a tu elección.</li>
+    <li><strong>Warm-up gradual de números nuevos</strong> — primer día 5 msg/h, segundo 10, etc. hasta llegar al cap normal. Ideal si vas a vincular un número recién comprado.</li>
+    <li><strong>Alertas de bloqueo en tiempo real</strong> — notificación inmediata por webhook/email si un número pierde la sesión.</li>
+    <li><strong>Dashboard de salud del número</strong> — métricas de uptime, reconexiones, rate-limit hits, último error. Visibilidad operativa total.</li>
+    <li><strong>Rotación multi-número en outbound</strong> — distribución round-robin entre tus números para mensajes salientes a contactos nuevos.</li>
+    <li><strong>Spintax para snippets manuales</strong> — variaciones de plantilla para mensajes que el operador humano envía a múltiples contactos.</li>
+  </ol>
+
+  <h2 id="cierre">En resumen</h2>
+
+  <p>Si te preguntan si "tenemos proxies", la respuesta honesta es: <strong>sí, los podemos activar cuando los necesités</strong>, pero no son el feature clave de nuestro producto. Lo que sí es clave, y donde ponemos el foco, es en construir comportamiento que sea genuinamente humano — porque ese es el problema real que protege tus números.</p>
+
+  <div class="callout ok">
+    <strong>El resultado para vos:</strong> un agente que conversa con tus clientes con la misma cadencia y naturalidad que un humano de tu equipo, opera dentro de límites que respetan los criterios de WhatsApp, te avisa si algo se rompe, y se adapta a las necesidades específicas de tu operación si requerís configuraciones avanzadas.
+  </div>
+
+  <p>Cualquier duda técnica adicional, escribinos y la respondemos con detalle. Si tu caso de uso es 100% outbound masivo, también te lo decimos honestamente — somos buenos en lo que somos buenos, y preferimos que tengas la herramienta correcta antes que vender algo que no encaja.</p>
+
+  </article></main>
+
+  <footer class="site"><div class="inner">
+    <img src="../assets/logo.svg" alt="My Store Digital">
+    <div class="meta"><a href="../index.html">índice</a> · <a href="https://github.com/My-Store-Digital-Team/docs-mystoredigital">github</a></div>
+  </div></footer>
+</body>
+</html>
